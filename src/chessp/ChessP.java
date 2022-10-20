@@ -23,6 +23,9 @@ public abstract class ChessP {
         Board.board[this.row][this.col] = null;
         this.row = row;
         this.col = col;
+
+        // check if this move put the opponent king in check (if so then make isInCheck for opponent king true)
+
         return true;
     }
     abstract public boolean is_legalMove(int col, int row);
