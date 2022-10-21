@@ -20,11 +20,15 @@ public class Queen extends ChessP {
      */
     @Override
     public boolean is_legalMove(int col, int row) {
+        // check if location is on the board
+        if (row >= 8 || col >= 8) {
+            return false;
+        }
+
         // check if location is current location (meaning no movement)
         if (col == this.col && row == this.row) {
             return false;
         }
-
         // check if position is use
         if (Board.chessBoard[row][col] != null) {
             // check if the piece at the position you want to move to is your team's color
@@ -42,7 +46,7 @@ public class Queen extends ChessP {
         if (row == this.row) {
             // moving right
             if (col > this.col) {
-                for (int i = this.col; i <= col; i++) {
+                for (int i = this.col + 1; i <= col; i++) {
                     if (Board.chessBoard[row][i] != null) {
                         // there is an obstruction
                         return false;
@@ -51,7 +55,7 @@ public class Queen extends ChessP {
             }
             // moving left
             else {
-                for (int i = this.col; i >= col; i--) {
+                for (int i = this.col - 1; i >= col; i--) {
                     if (Board.chessBoard[row][i] != null) {
                         // there is an obstruction
                         return false;
@@ -66,7 +70,7 @@ public class Queen extends ChessP {
         if (col == this.col) {
             // moving up
             if (row > this.row) {
-                for (int i = this.row; i <= row; i++) {
+                for (int i = this.row + 1; i <= row; i++) {
                     if (Board.chessBoard[i][col] != null) {
                         // there is an obstruction
                         return false;
@@ -75,7 +79,7 @@ public class Queen extends ChessP {
             }
             // moving down
             else {
-                for (int i = this.row; i >= row; i--) {
+                for (int i = this.row - 1; i >= row; i--) {
                     if (Board.chessBoard[i][col] != null) {
                         // there is an obstruction
                         return false;
@@ -87,6 +91,32 @@ public class Queen extends ChessP {
         }
 
         // check if the move is in the diagonal plane of the queen (reuse for bishop)
+        if (Math.abs(row - this.row) == Math.abs(col - this.col)) {
+            // diag up and right
+            if (row > this.row && col > this.col) {
+                for (int i = this.row + 1; i <= row; i++) {
+                    if (Board.chessBoard[i][i + 1] != null) {
+                        // there is an obstruction
+                        return false;
+                    }
+                }
+                return true;
+            }
+            // diag up and left
+            else if (row > this.row && col < this.col) {
+                for (int i = this.row + 1; i <= row; i++) {
+                    if (Board.chessBoard[i][i - 1] != null) {
+                        // there is an obstruction
+                        return false;
+                    }
+                }
+                return true;
+            }
+            // diag down and left
+
+            // diag down and right
+
+        }
 
         // if none of these moves work then return false
         return false;
