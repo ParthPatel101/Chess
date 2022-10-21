@@ -94,8 +94,8 @@ public class Queen extends ChessP {
         if (Math.abs(row - this.row) == Math.abs(col - this.col)) {
             // diag up and right
             if (row > this.row && col > this.col) {
-                for (int i = this.row + 1; i <= row; i++) {
-                    if (Board.chessBoard[i][i + 1] != null) {
+                for (int i = this.row + 1, j = this.col + 1; i <= row && j <= col; i++, j++) {
+                    if (Board.chessBoard[i][j] != null) {
                         // there is an obstruction
                         return false;
                     }
@@ -103,15 +103,7 @@ public class Queen extends ChessP {
                 return true;
             }
             // diag up and left
-            else if (row > this.row && col < this.col) {
-                for (int i = this.row + 1; i <= row; i++) {
-                    if (Board.chessBoard[i][i - 1] != null) {
-                        // there is an obstruction
-                        return false;
-                    }
-                }
-                return true;
-            }
+
             // diag down and left
 
             // diag down and right
