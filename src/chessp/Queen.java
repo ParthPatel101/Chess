@@ -21,7 +21,7 @@ public class Queen extends ChessP {
     @Override
     public boolean is_legalMove(int col, int row) {
         // check if location is on the board
-        if (row >= 8 || col >= 8) {
+        if (row > 7 || col > 7) {
             return false;
         }
 
@@ -103,11 +103,35 @@ public class Queen extends ChessP {
                 return true;
             }
             // diag up and left
-
-            // diag down and left
-
+            else if (row > this.row && col < this.col) {
+                for (int i = this.row + 1, j = this.col - 1; i <= row && j >= col; i++, j--) {
+                    if (Board.chessBoard[i][j] != null) {
+                        // there is an obstruction
+                        return false;
+                    }
+                }
+                return true;
+            }
             // diag down and right
-
+            else if (row < this.row && col > this.col) {
+                for (int i = this.row - 1, j = this.col + 1; i >= row && j <= col; i--, j++) {
+                    if (Board.chessBoard[i][j] != null) {
+                        // there is an obstruction
+                        return false;
+                    }
+                }
+                return true;
+            }
+            // diag down and left
+            else  {
+                for (int i = this.row - 1, j = this.col - 1; i >= row && j >= col; i--, j--) {
+                    if (Board.chessBoard[i][j] != null) {
+                        // there is an obstruction
+                        return false;
+                    }
+                }
+                return true;
+            }
         }
 
         // if none of these moves work then return false
