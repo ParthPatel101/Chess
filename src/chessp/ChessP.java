@@ -19,15 +19,18 @@ public abstract class ChessP {
         if (!is_legalMove(col, row)) {
             return false;
         }
-        Board.board[row][col] = Board.board[this.row][this.col];
-        Board.board[this.row][this.col] = null;
+        if (Board.chessBoard[row][col] != null) {
+            // we know we are capturing because we checked in is_legalMove that if there is a piece at row, col it's the enemy's piece
+            Board.chessBoard[row][col].in_game = false;
+        }
+        Board.chessBoard[row][col] = Board.chessBoard[this.row][this.col];
+        Board.chessBoard[this.row][this.col] = null;
         this.row = row;
         this.col = col;
 
-        // check if this move put the opponent king in check (if so then make isInCheck for opponent king true)
-
         return true;
     }
+    abstract public String printName();
     abstract public boolean is_legalMove(int col, int row);
 }
 
