@@ -23,6 +23,13 @@ public abstract class ChessP {
             // we know we are capturing because we checked in is_legalMove that if there is a piece at row, col it's the enemy's piece
             Board.chessBoard[row][col].in_game = false;
         }
+        // if a pawn made it's first move then change indicator variable
+        if (Board.chessBoard[row][col] instanceof Pawn) {
+            if (((Pawn) Board.chessBoard[row][col]).firstMove) {
+                ((Pawn) Board.chessBoard[row][col]).firstMove = false;
+            }
+        }
+
         Board.chessBoard[row][col] = Board.chessBoard[this.row][this.col];
         Board.chessBoard[this.row][this.col] = null;
         this.row = row;
