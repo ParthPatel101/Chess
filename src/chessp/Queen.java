@@ -29,6 +29,7 @@ public class Queen extends ChessP {
         if (col == this.col && row == this.row) {
             return false;
         }
+
         // check if position is use
         if (Board.chessBoard[row][col] != null) {
             // check if the piece at the position you want to move to is your team's color
@@ -39,7 +40,7 @@ public class Queen extends ChessP {
 
         // check if your king is in check and see if moving would block the check, return false if it doesn't block the check (reuse for all non-king pieces)
         if (Board.is_inCheck(this.isWhite)) {
-
+            throw new RuntimeException();
         }
 
         // check if the move is in the horizontal plane of queen (reuse for rook)
@@ -123,7 +124,7 @@ public class Queen extends ChessP {
                 return true;
             }
             // diag down and left
-            else  {
+            else {
                 for (int i = this.row - 1, j = this.col - 1; i >= row && j >= col; i--, j--) {
                     if (Board.chessBoard[i][j] != null) {
                         // there is an obstruction
