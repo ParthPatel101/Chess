@@ -61,8 +61,8 @@ public abstract class Board {
 
                 System.out.println(fromRow + "" + fromCol);
                 System.out.println(toRow + "" + toCol);
-                System.out.println(chessBoard[fromRow][fromCol].getName());
-                System.out.println(chessBoard[toRow][toCol].getName());
+                System.out.println(chessBoard[fromRow][fromCol].printName());
+                System.out.println(chessBoard[toRow][toCol].printName());
                 // check if pawn is moving to opposite side then check if there is a rank indicated
                 if (false) {
                     if (arr.length == 3) {
@@ -160,7 +160,6 @@ public abstract class Board {
             }
         }
 
-        return;
     }
 
     public static void print_board() {
@@ -175,7 +174,7 @@ public abstract class Board {
                         System.out.print(row + "" + col + " ");
                     }
                 } else {
-                    System.out.print(Board.chessBoard[row][col].getName() + " ");
+                    System.out.print(Board.chessBoard[row][col].printName() + " ");
                 }
                 if (col == 7) {
                     System.out.print((row + 1) + "\n");
