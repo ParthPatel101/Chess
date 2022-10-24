@@ -9,7 +9,7 @@ public class Bishop extends ChessP {
     }
 
     @Override
-    public String getName() {
+    public String printName() {
         return this.isWhite ? "wB" : "bB";
     }
 

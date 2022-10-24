@@ -9,7 +9,7 @@ public class Queen extends ChessP {
     }
 
     @Override
-    public String getName() {
+    public String printName() {
         return this.isWhite ? "wQ" : "bQ";
     }
 
