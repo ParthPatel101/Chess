@@ -6,7 +6,7 @@ public abstract class ChessP {
     protected boolean isWhite;
     protected int row;
     protected int col;
-    protected boolean in_game;
+    public boolean in_game;
 
     public ChessP(boolean isWhite, int row, int col) {
         this.isWhite = isWhite;

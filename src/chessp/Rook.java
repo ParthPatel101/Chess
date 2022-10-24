@@ -33,6 +33,11 @@ public class Rook extends ChessP {
             throw new RuntimeException();
         }
 
+        // check if the move will put king in check
+        // if (willPutinCheck) {
+        // return false;
+        // }
+
         // check if the move is in the horizontal plane
         if (row == this.row) {
             // moving right

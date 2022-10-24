@@ -36,6 +36,11 @@ public class Pawn extends ChessP {
             throw new RuntimeException();
         }
 
+        // check if the move will put king in check
+        // if (willPutinCheck) {
+        // return false;
+        // }
+
         // since pawns cannot move both forward and backward, check color
         if (this.isWhite) {
             // check if first move

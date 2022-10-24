@@ -10,7 +10,6 @@ public abstract class Board {
     public static ChessP[] blackPieces;
     public static ChessP whiteKing;
     public static ChessP blackKing;
-
     public static boolean whiteTurn;
 
     public static void start_game() {
@@ -63,6 +62,7 @@ public abstract class Board {
         // store reference to the white and black kings in Board.WhiteKing and Board.BlackKing
         for (int row = 7; row >= 0; row--) {
             for (int col = 0; col < 8; col++) {
+                // put pieces in their correct position based on row
                 if (row == 7) {
                     chessBoard[row][col] = blackPieces[col];
                 } else if (row == 6) {
@@ -74,23 +74,10 @@ public abstract class Board {
                 } else {
                     chessBoard[row][col] = null;
                 }
-                // initialize the board with white and black ChessP objects in correct locations
-                // top 2 rows is Blacks
-                // bottom 2 rows is Whites
             }
         }
-        return;
-    }
 
-    public static boolean is_inCheck(boolean isWhite) {
-        if (isWhite) {
-            // check if white king is in check
-            // return true or false
-            return false;
-        }
-        // check if black king is in check
-        // return true or false
-        return false;
+        return;
     }
 
     public static void print_board() {
@@ -112,6 +99,99 @@ public abstract class Board {
             }
         }
         System.out.println(" a  b  c  d  e  f  g  h");
+    }
+
+    public static boolean is_inCheck(boolean isWhite) {
+        // check all black pieces that are alive to see if they are checking white king
+        if (isWhite) {
+            for (ChessP i : blackPieces) {
+                if (i.in_game) {
+                    if (i instanceof Bishop) {
+                        if (BishopCheck((King) whiteKing, (Bishop) i)) {
+                            return true;
+                        }
+                    } else if (i instanceof King) {
+                        if (KingCheck((King) whiteKing, (King) i)) {
+                            return true;
+                        }
+                    } else if (i instanceof Knight) {
+                        if (KnightCheck((King) whiteKing, (Knight) i)) {
+                            return true;
+                        }
+                    } else if (i instanceof Pawn) {
+                        if (PawnCheck((King) whiteKing, (Pawn) i)) {
+                            return true;
+                        }
+                    } else if (i instanceof Queen) {
+                        if (QueenCheck((King) whiteKing, (Queen) i)) {
+                            return true;
+                        }
+                    } else {
+                        if (RookCheck((King) whiteKing, (Rook) i)) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        // check all white pieces that are alive to see if they are checking white king
+        else {
+            for (ChessP i : whitePieces) {
+                if (i.in_game) {
+                    if (i instanceof Bishop) {
+                        if (BishopCheck((King) blackKing, (Bishop) i)) {
+                            return true;
+                        }
+                    } else if (i instanceof King) {
+                        if (KingCheck((King) blackKing, (King) i)) {
+                            return true;
+                        }
+                    } else if (i instanceof Knight) {
+                        if (KnightCheck((King) blackKing, (Knight) i)) {
+                            return true;
+                        }
+                    } else if (i instanceof Pawn) {
+                        if (PawnCheck((King) blackKing, (Pawn) i)) {
+                            return true;
+                        }
+                    } else if (i instanceof Queen) {
+                        if (QueenCheck((King) blackKing, (Queen) i)) {
+                            return true;
+                        }
+                    } else {
+                        if (RookCheck((King) blackKing, (Rook) i)) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public static boolean BishopCheck(King yourKing, Bishop opponentBishop) {
+        /* Implement checker code here */
+        return false;
+    }
+    public static boolean KingCheck(King yourKing, King opponentKing) {
+        /* Implement checker code here */
+        return false;
+    }
+    public static boolean KnightCheck(King yourKing, Knight opponentKnight) {
+        /* Implement checker code here */
+        return false;
+    }
+    public static boolean PawnCheck(King yourKing, Pawn opponentPawn) {
+        /* Implement checker code here */
+        return false;
+    }
+    public static boolean QueenCheck(King yourKing, Queen opponentQueen) {
+        /* Implement checker code here */
+        return false;
+    }
+    public static boolean RookCheck(King yourKing, Rook opponentRook) {
+        /* Implement checker code here */
+        return false;
     }
 }
 

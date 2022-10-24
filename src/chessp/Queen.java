@@ -40,6 +40,11 @@ public class Queen extends ChessP {
             throw new RuntimeException();
         }
 
+        // check if the move will put king in check
+        // if (willPutinCheck) {
+        // return false;
+        // }
+
         // check if the move is in the horizontal plane of queen (reuse for rook)
         if (row == this.row) {
             // moving right
