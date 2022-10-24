@@ -10,7 +10,7 @@ public class Pawn extends ChessP {
     }
 
     @Override
-    public String printName() {
+    public String getName() {
         return this.isWhite ? "wp" : "bp";
     }
 

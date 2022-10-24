@@ -10,24 +10,107 @@ public abstract class Board {
     public static ChessP[] blackPieces;
     public static ChessP whiteKing;
     public static ChessP blackKing;
-    public static boolean whiteTurn;
+    public static boolean whiteTurn = true;
+    public static boolean gameRunning = false;
 
+    public static boolean draw = false;
     public static void start_game() {
-        initialize_board();
         Scanner in = new Scanner(System.in);
-        while (gameRunning()) {
-            print_board();
+        initialize_board();
+        gameRunning = true;
+        while (gameRunning) {
+            if (!draw) {
+                print_board();
+            }
             System.out.print(whiteTurn ? "White's move: " : "Black's move: ");
             String input = in.nextLine();
+            if (draw) {
+                if (input.equals("draw")) {
+                    gameRunning = false;
+                    System.out.println("draw");
+                    break;
+                }
+                else {
+                    // if player does not confirm the draw it will not stop asking them until they input "draw"
+                    continue;
+                }
+            }
+            if (input.equals("resign")) {
+                if (whiteTurn) {
+                    System.out.println("Black wins");
+                }
+                else {
+                    System.out.println("White wins");
+                }
+                gameRunning = false;
+                break;
+            }
+            else if (input.contains("draw?")) {
+                draw = true;
+
+                print_board();
+            }
+            else {
+                String[] arr = input.split(" ");
+
+                int fromRow = Integer.parseInt(arr[0].substring(1,2)) - 1;
+                int fromCol = convertLetterToNumber(arr[0].substring(0,1));
+
+                int toRow = Integer.parseInt(arr[1].substring(1,2)) - 1;
+                int toCol = convertLetterToNumber(arr[1].substring(0,1));
+
+                System.out.println(fromRow + "" + fromCol);
+                System.out.println(toRow + "" + toCol);
+                System.out.println(chessBoard[fromRow][fromCol].getName());
+                System.out.println(chessBoard[toRow][toCol].getName());
+                // check if pawn is moving to opposite side then check if there is a rank indicated
+                if (false) {
+                    if (arr.length == 3) {
+                        switch (arr[2]) {
+                            case "B":
+                                System.out.println("Bishop");
+                                break;
+                            case "N":
+                                System.out.println("Knight");
+                                break;
+                            case "R":
+                                System.out.println("Rook");
+                                break;
+                            default:
+                                System.out.println("Queen");
+                                break;
+                        }
+                    } else {
+                        System.out.println("Queen");
+                    }
+                }
+            }
             whiteTurn = !whiteTurn;
+//        return !whiteKing.checkMate && !blackKing.checkMate;
+
         }
     }
 
-    private static boolean gameRunning() {
-        return true;
-//        return !whiteKing.checkMate && !blackKing.checkMate && !draw();
+    public static int convertLetterToNumber(String letter) {
+        switch (letter) {
+            case "b":
+                return 1;
+            case "c":
+                return 2;
+            case "d":
+                return 3;
+            case "e":
+                return 4;
+            case "f":
+                return 5;
+            case "g":
+                return 6;
+            case "h":
+                return 7;
+            default:
+                return 0;
+        }
     }
-
 
     public static void initialize_board() {
         chessBoard = new ChessP[8][8];
@@ -81,6 +164,7 @@ public abstract class Board {
     }
 
     public static void print_board() {
+        System.out.print("\n");
         for (int row = 7; row >= 0; row--) {
             for (int col = 0; col < 8; col++) {
                 if (Board.chessBoard[row][col] == null) {
@@ -91,14 +175,14 @@ public abstract class Board {
                         System.out.print(row + "" + col + " ");
                     }
                 } else {
-                    System.out.print(Board.chessBoard[row][col].printName() + " ");
+                    System.out.print(Board.chessBoard[row][col].getName() + " ");
                 }
                 if (col == 7) {
                     System.out.print((row + 1) + "\n");
                 }
             }
         }
-        System.out.println(" a  b  c  d  e  f  g  h");
+        System.out.println(" a  b  c  d  e  f  g  h\n");
     }
 
     public static boolean is_inCheck(boolean isWhite) {
