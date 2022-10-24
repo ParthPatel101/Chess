@@ -13,29 +13,8 @@ public class Bishop extends ChessP {
         return this.isWhite ? "wB" : "bB";
     }
 
-
     @Override
-    public boolean is_legalMove(int col, int row) {
-        // check if location is on the board
-        if (row > 7 || col > 7) {
-            return false;
-        }
-
-        // check if location is current location (meaning no movement)
-        if (col == this.col && row == this.row) {
-            return false;
-        }
-
-        // check if position is use and is of same color
-        if (Board.chessBoard[row][col] != null && Board.chessBoard[row][col].isWhite == this.isWhite)  {
-            return false;
-        }
-
-        // check if your king is in check and see if moving would block the check, return false if it doesn't block the check (reuse for all non-king pieces)
-        if (Board.is_inCheck(this.isWhite)) {
-            throw new RuntimeException();
-        }
-
+    public boolean isFollowingPath(int col, int row) {
         // check if the move is in the diagonal plane of the queen (reuse for bishop)
         if (Math.abs(row - this.row) == Math.abs(col - this.col)) {
             // diag up and right
