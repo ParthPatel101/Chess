@@ -37,7 +37,7 @@ public abstract class ChessP {
 
         return true;
     }
-    abstract public String printName();
+    abstract public String getName();
     abstract public boolean is_legalMove(int col, int row);
 }
 

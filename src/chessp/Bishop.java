@@ -9,10 +9,9 @@ public class Bishop extends ChessP {
     }
 
     @Override
-    public String printName() {
+    public String getName() {
         return this.isWhite ? "wB" : "bB";
     }
-
 
     @Override
     public boolean is_legalMove(int col, int row) {

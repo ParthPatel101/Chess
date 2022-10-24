@@ -8,7 +8,7 @@ public class Rook extends ChessP {
     }
 
     @Override
-    public String printName() {
+    public String getName() {
         return this.isWhite ? "wR" : "bR";
     }
 

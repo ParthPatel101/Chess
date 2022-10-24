@@ -7,7 +7,7 @@ public class Knight extends ChessP{
     public Knight(boolean isWhite, int row, int col) { super(isWhite, row, col); }
 
     @Override
-    public String printName() {
+    public String getName() {
         return this.isWhite ? "wN" : "bN";
     }
 
