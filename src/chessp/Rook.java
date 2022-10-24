@@ -23,12 +23,9 @@ public class Rook extends ChessP {
             return false;
         }
 
-        // check if position is use
-        if (Board.chessBoard[row][col] != null) {
-            // check if the piece at the position you want to move to is your team's color
-            if (Board.chessBoard[row][col].isWhite == this.isWhite) {
-                return false;
-            }
+        // check if position is use and is of same color
+        if (Board.chessBoard[row][col] != null && Board.chessBoard[row][col].isWhite == this.isWhite)  {
+            return false;
         }
 
         // check if your king is in check and see if moving would block the check, return false if it doesn't block the check (reuse for all non-king pieces)
