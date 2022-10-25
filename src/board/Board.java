@@ -203,27 +203,27 @@ public abstract class Board {
             for (ChessP i : blackPieces) {
                 if (i.in_game) {
                     if (i instanceof Bishop) {
-                        if (BishopCheck((King) whiteKing, (Bishop) i)) {
+                        if (i.isCheckingKing((King) whiteKing)) {
                             return true;
                         }
                     } else if (i instanceof King) {
-                        if (KingCheck((King) whiteKing, (King) i)) {
+                        if (i.isCheckingKing((King) whiteKing)) {
                             return true;
                         }
                     } else if (i instanceof Knight) {
-                        if (KnightCheck((King) whiteKing, (Knight) i)) {
+                        if (i.isCheckingKing((King) whiteKing)) {
                             return true;
                         }
                     } else if (i instanceof Pawn) {
-                        if (PawnCheck((King) whiteKing, (Pawn) i)) {
+                        if (i.isCheckingKing((King) whiteKing)) {
                             return true;
                         }
                     } else if (i instanceof Queen) {
-                        if (QueenCheck((King) whiteKing, (Queen) i)) {
+                        if (i.isCheckingKing((King) whiteKing)) {
                             return true;
                         }
                     } else {
-                        if (RookCheck((King) whiteKing, (Rook) i)) {
+                        if (i.isCheckingKing((King) whiteKing)) {
                             return true;
                         }
                     }
@@ -235,58 +235,33 @@ public abstract class Board {
             for (ChessP i : whitePieces) {
                 if (i.in_game) {
                     if (i instanceof Bishop) {
-                        if (BishopCheck((King) blackKing, (Bishop) i)) {
+                        if (i.isCheckingKing((King) blackKing)) {
                             return true;
                         }
                     } else if (i instanceof King) {
-                        if (KingCheck((King) blackKing, (King) i)) {
+                        if (i.isCheckingKing((King) blackKing)) {
                             return true;
                         }
                     } else if (i instanceof Knight) {
-                        if (KnightCheck((King) blackKing, (Knight) i)) {
+                        if (i.isCheckingKing((King) blackKing)) {
                             return true;
                         }
                     } else if (i instanceof Pawn) {
-                        if (PawnCheck((King) blackKing, (Pawn) i)) {
+                        if (i.isCheckingKing((King) blackKing)) {
                             return true;
                         }
                     } else if (i instanceof Queen) {
-                        if (QueenCheck((King) blackKing, (Queen) i)) {
+                        if (i.isCheckingKing((King) blackKing)) {
                             return true;
                         }
                     } else {
-                        if (RookCheck((King) blackKing, (Rook) i)) {
+                        if (i.isCheckingKing((King) blackKing)) {
                             return true;
                         }
                     }
                 }
             }
         }
-        return false;
-    }
-
-    public static boolean BishopCheck(King yourKing, Bishop opponentBishop) {
-        /* Implement checker code here */
-        return false;
-    }
-    public static boolean KingCheck(King yourKing, King opponentKing) {
-        /* Implement checker code here */
-        return false;
-    }
-    public static boolean KnightCheck(King yourKing, Knight opponentKnight) {
-        /* Implement checker code here */
-        return false;
-    }
-    public static boolean PawnCheck(King yourKing, Pawn opponentPawn) {
-        /* Implement checker code here */
-        return false;
-    }
-    public static boolean QueenCheck(King yourKing, Queen opponentQueen) {
-        /* Implement checker code here */
-        return false;
-    }
-    public static boolean RookCheck(King yourKing, Rook opponentRook) {
-        /* Implement checker code here */
         return false;
     }
 }

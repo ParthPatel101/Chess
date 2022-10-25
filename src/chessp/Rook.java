@@ -65,4 +65,10 @@ public class Rook extends ChessP {
         // if none of these moves work then return false
         return false;
     }
+
+    @Override
+    public boolean isCheckingKing(ChessP OpponentKing) {
+        /* Implement using for loops to check if opponentKing in movement plane */
+        return false;
+    }
 }

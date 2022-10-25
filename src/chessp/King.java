@@ -24,6 +24,12 @@ public class King extends ChessP {
         }
         return false;
     }
+
+    @Override
+    public boolean isCheckingKing(ChessP OpponentKing) {
+        /* Implement using for loops to check if opponentKing in movement plane */
+        return false;
+    }
 }
 
 
