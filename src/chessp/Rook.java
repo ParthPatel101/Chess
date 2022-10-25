@@ -1,7 +1,5 @@
 package chessp;
 
-import board.Board;
-
 public class Rook extends ChessP {
     public Rook(boolean isWhite, int row, int col) {
         super(isWhite, row, col);
@@ -14,54 +12,14 @@ public class Rook extends ChessP {
 
     @Override
     public boolean isFollowingPath(int col, int row) {
-        // check if the move is in the horizontal plane
+        // check if the move is in the horizontal plane of queen (reuse for rook)
         if (row == this.row) {
-            // moving right
-            if (col > this.col) {
-                for (int i = this.col + 1; i <= col; i++) {
-                    if (Board.chessBoard[row][i] != null) {
-                        // there is an obstruction
-                        return false;
-                    }
-                }
-            }
-            // moving left
-            else {
-                for (int i = this.col - 1; i >= col; i--) {
-                    if (Board.chessBoard[row][i] != null) {
-                        // there is an obstruction
-                        return false;
-                    }
-                }
-            }
-            // no obstruction
-            return true;
+            return canMoveHorizontally(col, row);
         }
-
-        // check if the move is in the vertical plane
+        // check if the move is in the vertical plane of queen (reuse for rook, pawn [with modification])
         if (col == this.col) {
-            // moving up
-            if (row > this.row) {
-                for (int i = this.row + 1; i <= row; i++) {
-                    if (Board.chessBoard[i][col] != null) {
-                        // there is an obstruction
-                        return false;
-                    }
-                }
-            }
-            // moving down
-            else {
-                for (int i = this.row - 1; i >= row; i--) {
-                    if (Board.chessBoard[i][col] != null) {
-                        // there is an obstruction
-                        return false;
-                    }
-                }
-            }
-            // no obstruction
-            return true;
+            return canMoveVertically(col, row);
         }
-
         // if none of these moves work then return false
         return false;
     }

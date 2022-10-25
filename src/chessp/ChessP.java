@@ -78,6 +78,7 @@ public abstract class ChessP {
         // check if location is on the board
         return (row <= 7 && row >= 0) && (col <= 7 && col >= 0) && (row != this.row || col != this.col);
     }
+
     public boolean isOccupiedBySameColor(int col, int row) {
         // check if position in use and is of same color
         return Board.chessBoard[row][col] != null && Board.chessBoard[row][col].isWhite == this.isWhite;
@@ -124,8 +125,96 @@ public abstract class ChessP {
         return false;
     }
 
+    public boolean canMoveHorizontally(int col, int row) {
+        // moving right
+        if (col > this.col) {
+            for (int i = this.col + 1; i <= col; i++) {
+                if (Board.chessBoard[row][i] != null) {
+                    // there is an obstruction
+                    return false;
+                }
+            }
+        }
+        // moving left
+        else {
+            for (int i = this.col - 1; i >= col; i--) {
+                if (Board.chessBoard[row][i] != null) {
+                    // there is an obstruction
+                    return false;
+                }
+            }
+        }
+        // no obstruction
+        return true;
+    }
+
+    public boolean canMoveVertically(int col, int row) {
+        // moving up
+        if (row > this.row) {
+            for (int i = this.row + 1; i <= row; i++) {
+                if (Board.chessBoard[i][col] != null) {
+                    // there is an obstruction
+                    return false;
+                }
+            }
+        }
+        // moving down
+        else {
+            for (int i = this.row - 1; i >= row; i--) {
+                if (Board.chessBoard[i][col] != null) {
+                    // there is an obstruction
+                    return false;
+                }
+            }
+        }
+        // no obstruction
+        return true;
+    }
+
+    public boolean canMoveDiagonally(int col, int row) {
+        // diag up and right
+        if (row > this.row && col > this.col) {
+            for (int i = this.row + 1, j = this.col + 1; i <= row && j <= col; i++, j++) {
+                if (Board.chessBoard[i][j] != null) {
+                    // there is an obstruction
+                    return false;
+                }
+            }
+            return true;
+        }
+        // diag up and left
+        else if (row > this.row && col < this.col) {
+            for (int i = this.row + 1, j = this.col - 1; i <= row && j >= col; i++, j--) {
+                if (Board.chessBoard[i][j] != null) {
+                    // there is an obstruction
+                    return false;
+                }
+            }
+            return true;
+        }
+        // diag down and right
+        else if (row < this.row && col > this.col) {
+            for (int i = this.row - 1, j = this.col + 1; i >= row && j <= col; i--, j++) {
+                if (Board.chessBoard[i][j] != null) {
+                    // there is an obstruction
+                    return false;
+                }
+            }
+            return true;
+        }
+        // diag down and left
+        else {
+            for (int i = this.row - 1, j = this.col - 1; i >= row && j >= col; i--, j--) {
+                if (Board.chessBoard[i][j] != null) {
+                    // there is an obstruction
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
+
     abstract public String getName();
     abstract public boolean isFollowingPath(int col, int row);
-
     abstract public boolean isCheckingKing(King OpponentKing);
 }
