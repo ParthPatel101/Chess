@@ -175,8 +175,8 @@ public abstract class Board {
                         System.out.print("## ");
                     } else {
                         // this is just for looking at index while we develop the moves will remove after
-//                        System.out.print(row + "" + col + " ");
-                        System.out.print("   ");
+                        System.out.print(row + "" + col + " ");
+//                        System.out.print("   ");
                     }
                 } else {
                     System.out.print(Board.chessBoard[row][col].getName() + " ");
