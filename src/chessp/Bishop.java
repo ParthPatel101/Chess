@@ -64,7 +64,7 @@ public class Bishop extends ChessP {
     }
 
     @Override
-    public boolean isCheckingKing(ChessP OpponentKing) {
+    public boolean isCheckingKing(King OpponentKing) {
         /* Implement using for loops to check if opponentKing in movement plane */
         return false;
     }
