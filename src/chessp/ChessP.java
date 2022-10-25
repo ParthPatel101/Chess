@@ -128,18 +128,18 @@ public abstract class ChessP {
     public boolean canMoveHorizontally(int col, int row) {
         // moving right
         if (col > this.col) {
-            for (int i = this.col + 1; i <= col; i++) {
+            for (int i = this.col + 1; i < col; i++) {
                 if (Board.chessBoard[row][i] != null) {
-                    // there is an obstruction
+                    // there is an obstruction on the way to the destination
                     return false;
                 }
             }
         }
         // moving left
         else {
-            for (int i = this.col - 1; i >= col; i--) {
+            for (int i = this.col - 1; i > col; i--) {
                 if (Board.chessBoard[row][i] != null) {
-                    // there is an obstruction
+                    // there is an obstruction on the way to the destination
                     return false;
                 }
             }
@@ -151,18 +151,18 @@ public abstract class ChessP {
     public boolean canMoveVertically(int col, int row) {
         // moving up
         if (row > this.row) {
-            for (int i = this.row + 1; i <= row; i++) {
+            for (int i = this.row + 1; i < row; i++) {
                 if (Board.chessBoard[i][col] != null) {
-                    // there is an obstruction
+                    // there is an obstruction on the way to the destination
                     return false;
                 }
             }
         }
         // moving down
         else {
-            for (int i = this.row - 1; i >= row; i--) {
+            for (int i = this.row - 1; i > row; i--) {
                 if (Board.chessBoard[i][col] != null) {
-                    // there is an obstruction
+                    // there is an obstruction on the way to the destination
                     return false;
                 }
             }
@@ -174,9 +174,9 @@ public abstract class ChessP {
     public boolean canMoveDiagonally(int col, int row) {
         // diag up and right
         if (row > this.row && col > this.col) {
-            for (int i = this.row + 1, j = this.col + 1; i <= row && j <= col; i++, j++) {
+            for (int i = this.row + 1, j = this.col + 1; i < row && j < col; i++, j++) {
                 if (Board.chessBoard[i][j] != null) {
-                    // there is an obstruction
+                    // there is an obstruction on the way to the destination
                     return false;
                 }
             }
@@ -184,9 +184,9 @@ public abstract class ChessP {
         }
         // diag up and left
         else if (row > this.row && col < this.col) {
-            for (int i = this.row + 1, j = this.col - 1; i <= row && j >= col; i++, j--) {
+            for (int i = this.row + 1, j = this.col - 1; i < row && j > col; i++, j--) {
                 if (Board.chessBoard[i][j] != null) {
-                    // there is an obstruction
+                    // there is an obstruction on the way to the destination
                     return false;
                 }
             }
@@ -194,9 +194,9 @@ public abstract class ChessP {
         }
         // diag down and right
         else if (row < this.row && col > this.col) {
-            for (int i = this.row - 1, j = this.col + 1; i >= row && j <= col; i--, j++) {
+            for (int i = this.row - 1, j = this.col + 1; i > row && j < col; i--, j++) {
                 if (Board.chessBoard[i][j] != null) {
-                    // there is an obstruction
+                    // there is an obstruction on the way to the destination
                     return false;
                 }
             }
@@ -204,9 +204,9 @@ public abstract class ChessP {
         }
         // diag down and left
         else {
-            for (int i = this.row - 1, j = this.col - 1; i >= row && j >= col; i--, j--) {
+            for (int i = this.row - 1, j = this.col - 1; i > row && j > col; i--, j--) {
                 if (Board.chessBoard[i][j] != null) {
-                    // there is an obstruction
+                    // there is an obstruction on the way to the destination
                     return false;
                 }
             }
