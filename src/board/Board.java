@@ -8,8 +8,8 @@ public abstract class Board {
     public static ChessP[][] chessBoard;
     public static ChessP[] whitePieces;
     public static ChessP[] blackPieces;
-    public static ChessP whiteKing;
-    public static ChessP blackKing;
+    public static King whiteKing;
+    public static King blackKing;
     public static boolean whiteTurn = true;
     public static boolean gameRunning = false;
     public static boolean draw = false;
@@ -70,12 +70,19 @@ public abstract class Board {
                     continue;
                 }
 
+                // if input has a promotion input without a promotion possible
+                if (arr.length == 3 && (!(movingPiece instanceof Pawn) || !(toRow == 0 || toRow == 7))) {
+                    System.out.println("Illegal move, try again");
+                    continue;
+                }
+
                 try {
                     movingPiece.move(toCol, toRow,false);
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                     continue;
                 }
+
                 // check if pawn is moving to opposite side then check if there is a rank indicated
                 if (movingPiece instanceof Pawn && (toRow == 0 || toRow == 7)) {
                     if (arr.length == 3) {
@@ -134,7 +141,7 @@ public abstract class Board {
          blackPieces[2] = new Bishop(false, 7, 2);
          blackPieces[3] = new Queen(false, 7, 3);
          blackPieces[4] = new King(false, 7, 4);
-         blackKing = blackPieces[4];
+         blackKing = (King) blackPieces[4];
          blackPieces[5] = new Bishop(false, 7, 5);
          blackPieces[6] = new Knight(false, 7, 6);
          blackPieces[7] = new Rook(false, 7, 7);
@@ -148,7 +155,7 @@ public abstract class Board {
          whitePieces[2] = new Bishop(true, 0, 2);
          whitePieces[3] = new Queen(true, 0, 3);
          whitePieces[4] = new King(true, 0, 4);
-         whiteKing = whitePieces[4];
+         whiteKing = (King) whitePieces[4];
          whitePieces[5] = new Bishop(true, 0, 5);
          whitePieces[6] = new Knight(true, 0, 6);
          whitePieces[7] = new Rook(true, 0, 7);
@@ -184,7 +191,8 @@ public abstract class Board {
                         System.out.print("## ");
                     } else {
                         // this is just for looking at index while we develop the moves will remove after
-                        System.out.print(row + "" + col + " ");
+//                        System.out.print(row + "" + col + " ");
+                        System.out.print("   ");
                     }
                 } else {
                     System.out.print(Board.chessBoard[row][col].getName() + " ");
@@ -203,27 +211,27 @@ public abstract class Board {
             for (ChessP i : blackPieces) {
                 if (i.in_game) {
                     if (i instanceof Bishop) {
-                        if (i.isCheckingKing((King) whiteKing)) {
+                        if (i.isCheckingKing(whiteKing)) {
                             return true;
                         }
                     } else if (i instanceof King) {
-                        if (i.isCheckingKing((King) whiteKing)) {
+                        if (i.isCheckingKing(whiteKing)) {
                             return true;
                         }
                     } else if (i instanceof Knight) {
-                        if (i.isCheckingKing((King) whiteKing)) {
+                        if (i.isCheckingKing(whiteKing)) {
                             return true;
                         }
                     } else if (i instanceof Pawn) {
-                        if (i.isCheckingKing((King) whiteKing)) {
+                        if (i.isCheckingKing(whiteKing)) {
                             return true;
                         }
                     } else if (i instanceof Queen) {
-                        if (i.isCheckingKing((King) whiteKing)) {
+                        if (i.isCheckingKing(whiteKing)) {
                             return true;
                         }
                     } else {
-                        if (i.isCheckingKing((King) whiteKing)) {
+                        if (i.isCheckingKing(whiteKing)) {
                             return true;
                         }
                     }
