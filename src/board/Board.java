@@ -87,21 +87,13 @@ public abstract class Board {
                 if (movingPiece instanceof Pawn && (toRow == 0 || toRow == 7)) {
                     if (arr.length == 3) {
                         switch (arr[2]) {
-                            case "B":
-                                chessBoard[toRow][toCol] = new Bishop(movingPiece.isWhite, toRow, toCol);
-                                break;
-                            case "N":
-                                chessBoard[toRow][toCol] = new Knight(movingPiece.isWhite, toRow, toCol);
-                                break;
-                            case "R":
-                                chessBoard[toRow][toCol] = new Rook(movingPiece.isWhite, toRow, toCol);
-                                break;
-                            default:
-                                chessBoard[toRow][toCol] = new Queen(movingPiece.isWhite, toRow, toCol);
-                                break;
+                            case "B" -> chessBoard[toRow][toCol] = new Bishop(movingPiece.isWhite, toRow, toCol);
+                            case "N" -> chessBoard[toRow][toCol] = new Knight(movingPiece.isWhite, toRow, toCol);
+                            case "R" -> chessBoard[toRow][toCol] = new Rook(movingPiece.isWhite, toRow, toCol);
+                            default -> chessBoard[toRow][toCol] = new Queen(movingPiece.isWhite, toRow, toCol);
                         }
                     } else {
-                        chessBoard[toRow][toCol] = new Bishop(movingPiece.isWhite, toRow, toCol);
+                        chessBoard[toRow][toCol] = new Queen(movingPiece.isWhite, toRow, toCol);
                     }
                 }
             }
@@ -112,24 +104,16 @@ public abstract class Board {
     }
 
     public static int convertLetterToNumber(String letter) {
-        switch (letter) {
-            case "b":
-                return 1;
-            case "c":
-                return 2;
-            case "d":
-                return 3;
-            case "e":
-                return 4;
-            case "f":
-                return 5;
-            case "g":
-                return 6;
-            case "h":
-                return 7;
-            default:
-                return 0;
-        }
+        return switch (letter) {
+            case "b" -> 1;
+            case "c" -> 2;
+            case "d" -> 3;
+            case "e" -> 4;
+            case "f" -> 5;
+            case "g" -> 6;
+            case "h" -> 7;
+            default -> 0;
+        };
     }
 
     public static void initialize_board() {
@@ -243,27 +227,27 @@ public abstract class Board {
             for (ChessP i : whitePieces) {
                 if (i.in_game) {
                     if (i instanceof Bishop) {
-                        if (i.isCheckingKing((King) blackKing)) {
+                        if (i.isCheckingKing(blackKing)) {
                             return true;
                         }
                     } else if (i instanceof King) {
-                        if (i.isCheckingKing((King) blackKing)) {
+                        if (i.isCheckingKing(blackKing)) {
                             return true;
                         }
                     } else if (i instanceof Knight) {
-                        if (i.isCheckingKing((King) blackKing)) {
+                        if (i.isCheckingKing(blackKing)) {
                             return true;
                         }
                     } else if (i instanceof Pawn) {
-                        if (i.isCheckingKing((King) blackKing)) {
+                        if (i.isCheckingKing(blackKing)) {
                             return true;
                         }
                     } else if (i instanceof Queen) {
-                        if (i.isCheckingKing((King) blackKing)) {
+                        if (i.isCheckingKing(blackKing)) {
                             return true;
                         }
                     } else {
-                        if (i.isCheckingKing((King) blackKing)) {
+                        if (i.isCheckingKing(blackKing)) {
                             return true;
                         }
                     }
