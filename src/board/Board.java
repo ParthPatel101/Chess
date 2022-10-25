@@ -193,65 +193,13 @@ public abstract class Board {
         // check all black pieces that are alive to see if they are checking white king
         if (isWhite) {
             for (ChessP i : blackPieces) {
-                if (i.in_game) {
-                    if (i instanceof Bishop) {
-                        if (i.isCheckingKing(whiteKing)) {
-                            return true;
-                        }
-                    } else if (i instanceof King) {
-                        if (i.isCheckingKing(whiteKing)) {
-                            return true;
-                        }
-                    } else if (i instanceof Knight) {
-                        if (i.isCheckingKing(whiteKing)) {
-                            return true;
-                        }
-                    } else if (i instanceof Pawn) {
-                        if (i.isCheckingKing(whiteKing)) {
-                            return true;
-                        }
-                    } else if (i instanceof Queen) {
-                        if (i.isCheckingKing(whiteKing)) {
-                            return true;
-                        }
-                    } else {
-                        if (i.isCheckingKing(whiteKing)) {
-                            return true;
-                        }
-                    }
-                }
+                if (i.in_game && i.isCheckingKing(whiteKing)) return true;
             }
         }
         // check all white pieces that are alive to see if they are checking white king
         else {
             for (ChessP i : whitePieces) {
-                if (i.in_game) {
-                    if (i instanceof Bishop) {
-                        if (i.isCheckingKing(blackKing)) {
-                            return true;
-                        }
-                    } else if (i instanceof King) {
-                        if (i.isCheckingKing(blackKing)) {
-                            return true;
-                        }
-                    } else if (i instanceof Knight) {
-                        if (i.isCheckingKing(blackKing)) {
-                            return true;
-                        }
-                    } else if (i instanceof Pawn) {
-                        if (i.isCheckingKing(blackKing)) {
-                            return true;
-                        }
-                    } else if (i instanceof Queen) {
-                        if (i.isCheckingKing(blackKing)) {
-                            return true;
-                        }
-                    } else {
-                        if (i.isCheckingKing(blackKing)) {
-                            return true;
-                        }
-                    }
-                }
+                if (i.in_game && i.isCheckingKing(blackKing)) return true;
             }
         }
         return false;
