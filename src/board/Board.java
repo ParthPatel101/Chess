@@ -69,7 +69,6 @@ public abstract class Board {
                 System.out.println(toRow + "" + toCol);
                 System.out.println(chessBoard[fromRow][fromCol].getName());
                 System.out.println(chessBoard[toRow][toCol].getName());
-
                 // check if pawn is moving to opposite side then check if there is a rank indicated
                 if (movingPiece instanceof Pawn && (toRow == 0 || toRow == 7)) {
                     if (arr.length == 3) {

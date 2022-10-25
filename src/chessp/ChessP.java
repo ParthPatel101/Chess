@@ -74,31 +74,24 @@ public abstract class ChessP {
         this.col = this.prevCol;
     }
 
-    public static boolean isValidLocationOnBoard(int col, int row) {
+    public boolean isValidLocation(int col, int row) {
         // check if location is on the board
-        return row <= 7 && row >= 0 && col <= 7 && col >= 0;
+        return (row <= 7 && row >= 0 && row != this.row) && (col <= 7 && col >= 0 && col != this.col);
     }
-
-    public boolean isCurrentLocation(int col, int row) {
-        // check if location is current location (meaning no movement)
-        return col == this.col && row == this.row;
-    }
-
-    public boolean isDestinationOccupiedByCompanion(int col, int row) {
+    public boolean isOccupiedBySameColor(int col, int row) {
         // check if position in use and is of same color
         return Board.chessBoard[row][col] != null && Board.chessBoard[row][col].isWhite == this.isWhite;
     }
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public boolean preliminaryLegalMove(int col, int row) {
-        if (!isValidLocationOnBoard(col, row)) return false;
-        if (isCurrentLocation(col, row)) return false;
-        if (!isFollowingPath(col, row)) return false;
-        return !isDestinationOccupiedByCompanion(col, row);
+        if (!isValidLocation(col, row)) return false;
+        if (isOccupiedBySameColor(col, row)) return false;
+        return (isFollowingPath(col, row));
     }
 
     public boolean willMoveBlockCheck(int col, int row) {
-        // check if your king is in check and see if moving would block the check, return false if it doesn't block the check (reuse for all non-king pieces)
+        // check if your king is in check and see if moving would block the check, return false if it doesn't block the check
         if (Board.is_inCheck(this.isWhite)) {
             try {
                 move(col, row, true);
