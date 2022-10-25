@@ -127,5 +127,5 @@ public abstract class ChessP {
     abstract public String getName();
     abstract public boolean isFollowingPath(int col, int row);
 
-    abstract public boolean isCheckingKing(ChessP OpponentKing);
+    abstract public boolean isCheckingKing(King OpponentKing);
 }
