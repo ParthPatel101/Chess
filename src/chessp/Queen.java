@@ -1,7 +1,6 @@
 package chessp;
 
 import board.Board;
-import chessp.ChessP;
 
 public class Queen extends ChessP {
     public Queen(boolean isWhite, int row, int col) {
