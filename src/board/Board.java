@@ -196,7 +196,7 @@ public abstract class Board {
                 if (i.in_game && i.isCheckingKing(whiteKing)) return true;
             }
         }
-        // check all white pieces that are alive to see if they are checking white king
+        // check all white pieces that are alive to see if they are checking black king
         else {
             for (ChessP i : whitePieces) {
                 if (i.in_game && i.isCheckingKing(blackKing)) return true;
