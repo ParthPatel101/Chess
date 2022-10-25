@@ -65,29 +65,36 @@ public abstract class Board {
                 }
 
                 ChessP movingPiece = chessBoard[fromRow][fromCol];
-                System.out.println(fromRow + "" + fromCol);
-                System.out.println(toRow + "" + toCol);
-                System.out.println(chessBoard[fromRow][fromCol].getName());
-                System.out.println(chessBoard[toRow][toCol].getName());
+                if (whiteTurn != movingPiece.isWhite) {
+                    System.out.println("Illegal move, try again");
+                    continue;
+                }
+
+                try {
+                    movingPiece.move(toCol, toRow,false);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                    continue;
+                }
                 // check if pawn is moving to opposite side then check if there is a rank indicated
                 if (movingPiece instanceof Pawn && (toRow == 0 || toRow == 7)) {
                     if (arr.length == 3) {
                         switch (arr[2]) {
                             case "B":
-                                System.out.println("Bishop");
+                                chessBoard[toRow][toCol] = new Bishop(movingPiece.isWhite, toRow, toCol);
                                 break;
                             case "N":
-                                System.out.println("Knight");
+                                chessBoard[toRow][toCol] = new Knight(movingPiece.isWhite, toRow, toCol);
                                 break;
                             case "R":
-                                System.out.println("Rook");
+                                chessBoard[toRow][toCol] = new Rook(movingPiece.isWhite, toRow, toCol);
                                 break;
                             default:
-                                System.out.println("Queen");
+                                chessBoard[toRow][toCol] = new Queen(movingPiece.isWhite, toRow, toCol);
                                 break;
                         }
                     } else {
-                        System.out.println("Queen");
+                        chessBoard[toRow][toCol] = new Bishop(movingPiece.isWhite, toRow, toCol);
                     }
                 }
             }

@@ -76,7 +76,7 @@ public abstract class ChessP {
 
     public boolean isValidLocation(int col, int row) {
         // check if location is on the board
-        return (row <= 7 && row >= 0 && row != this.row) && (col <= 7 && col >= 0 && col != this.col);
+        return (row <= 7 && row >= 0) && (col <= 7 && col >= 0) && (row != this.row || col != this.col);
     }
     public boolean isOccupiedBySameColor(int col, int row) {
         // check if position in use and is of same color
@@ -126,6 +126,6 @@ public abstract class ChessP {
 
     abstract public String getName();
     abstract public boolean isFollowingPath(int col, int row);
+
+    abstract public boolean isCheckingKing(ChessP OpponentKing);
 }
-
-
