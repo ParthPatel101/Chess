@@ -131,7 +131,7 @@ public abstract class ChessP {
         return false;
     }
 
-    abstract public String printName();
+    abstract public String getName();
     abstract public boolean isFollowingPath(int col, int row);
 }
 

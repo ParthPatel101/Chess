@@ -12,8 +12,8 @@ public abstract class Board {
     public static ChessP blackKing;
     public static boolean whiteTurn = true;
     public static boolean gameRunning = false;
-
     public static boolean draw = false;
+
     public static void start_game() {
         Scanner in = new Scanner(System.in);
         initialize_board();
@@ -59,12 +59,19 @@ public abstract class Board {
                 int toRow = Integer.parseInt(arr[1].substring(1,2)) - 1;
                 int toCol = convertLetterToNumber(arr[1].substring(0,1));
 
+                if (chessBoard[fromRow][fromCol] == null) {
+                    System.out.println("Illegal move, try again");
+                    continue;
+                }
+
+                ChessP movingPiece = chessBoard[fromRow][fromCol];
                 System.out.println(fromRow + "" + fromCol);
                 System.out.println(toRow + "" + toCol);
-                System.out.println(chessBoard[fromRow][fromCol].printName());
-                System.out.println(chessBoard[toRow][toCol].printName());
+                System.out.println(chessBoard[fromRow][fromCol].getName());
+                System.out.println(chessBoard[toRow][toCol].getName());
+
                 // check if pawn is moving to opposite side then check if there is a rank indicated
-                if (false) {
+                if (movingPiece instanceof Pawn && (toRow == 0 || toRow == 7)) {
                     if (arr.length == 3) {
                         switch (arr[2]) {
                             case "B":
@@ -174,7 +181,7 @@ public abstract class Board {
                         System.out.print(row + "" + col + " ");
                     }
                 } else {
-                    System.out.print(Board.chessBoard[row][col].printName() + " ");
+                    System.out.print(Board.chessBoard[row][col].getName() + " ");
                 }
                 if (col == 7) {
                     System.out.print((row + 1) + "\n");
