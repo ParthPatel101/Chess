@@ -17,7 +17,17 @@ public class King extends ChessP {
     public boolean isFollowingPath(int col, int row) {
         // check if king has not castled yet
         if (castling == 0) {
-            System.out.println("not yet castled");
+            // castling left
+            if (this.col > col) {
+                if (Board.chessBoard[this.row][0] != null && Board.chessBoard[this.row][0] instanceof Rook && Board.chessBoard[this.row][0].isWhite == this.isWhite) {
+                    for (int i = this.col; i > 0; i--) {
+                        // check if there is an obstruction between the king and the rook
+                    }
+                }
+            }
+            else if (this.col < col) {
+
+            }
             // if the move is a castling move && it works
             // castling = 1
             // return true;
@@ -25,6 +35,12 @@ public class King extends ChessP {
             // else if the move is a not castling move && it works
             // castling = -1
             // return true;
+        }
+
+        for (int i = 0; i < 8; i++) {
+            if ((row == this.row + possibleXMoves[i]) && (col == this.col + possibleYMoves[i])) {
+                return true;
+            }
         }
         return false;
     }
