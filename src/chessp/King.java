@@ -3,6 +3,9 @@ package chessp;
 import board.Board;
 
 public class King extends ChessP {
+
+    private final int[] possibleXMoves = { -1, -1, -1, 0, 0, 1, 1, 1};
+    private final int[] possibleYMoves = { -1, 0, 1, -1, 1, -1, 0, 1};
     public int castling = 0; // 0 means not yet castled, 1 means they have castled, -1 means they are not allowed to castle
 
     public King(boolean isWhite, int row, int col) { super(isWhite, row, col); }
@@ -14,6 +17,7 @@ public class King extends ChessP {
     public boolean isFollowingPath(int col, int row) {
         // check if king has not castled yet
         if (castling == 0) {
+            System.out.println("not yet castled");
             // if the move is a castling move && it works
             // castling = 1
             // return true;
@@ -27,7 +31,15 @@ public class King extends ChessP {
 
     @Override
     public boolean isCheckingKing(King OpponentKing) {
-        /* Implement using for loops to check if opponentKing in movement plane */
+        for (int i = 0; i < 8; i++) {
+            int checkRow = this.row + this.possibleXMoves[i];
+            int checkCol = this.col + this.possibleYMoves[i];
+            if (checkRow <= 7 && checkRow >= 0 && checkCol <= 7 && checkCol >= 0) {
+                if (Board.chessBoard[checkRow][checkCol] != null && Board.chessBoard[checkRow][checkCol].getName().equals(OpponentKing.getName())) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 }

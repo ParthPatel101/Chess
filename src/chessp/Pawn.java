@@ -36,17 +36,12 @@ public class Pawn extends ChessP {
             }
             // check if we are moving vertically
             if (this.col == col) {
-                if ((row - this.row) == 1 && Board.chessBoard[row][col] == null) {
-                    return true;
-                }
+                return (row - this.row) == 1 && Board.chessBoard[row][col] == null;
             }
             else {
                 if ((row - this.row) == 1 && Math.abs(col - this.col) == 1) {
                     // check if there is a black enemy
-                    if (Board.chessBoard[row][col] != null && !Board.chessBoard[row][col].isWhite) {
-                        return true;
-                    }
-                    return false;
+                    return Board.chessBoard[row][col] != null && !Board.chessBoard[row][col].isWhite;
                 }
             }
         }
@@ -69,17 +64,12 @@ public class Pawn extends ChessP {
             }
             // check if we are moving vertically
             if (this.col == col) {
-                if ((this.row - row) == 1 && Board.chessBoard[row][col] == null) {
-                    return true;
-                }
+                return (this.row - row) == 1 && Board.chessBoard[row][col] == null;
             }
             else {
                 if ((this.row - row) == 1 && Math.abs(col - this.col) == 1) {
-                    // check if there is a black enemy
-                    if (Board.chessBoard[row][col] != null && !Board.chessBoard[row][col].isWhite) {
-                        return true;
-                    }
-                    return false;
+                    // check if there is a white enemy
+                    return Board.chessBoard[row][col] != null && Board.chessBoard[row][col].isWhite;
                 }
             }
         }
@@ -89,7 +79,36 @@ public class Pawn extends ChessP {
 
     @Override
     public boolean isCheckingKing(King OpponentKing) {
-        /* Implement using for loops to check if opponentKing in movement plane */
+        if (this.isWhite) {
+            int upRow = this.row + 1;
+            // check up-right
+            int upRightCol = this.col + 1;
+            if (upRow <= 7 && upRow >= 0 && upRightCol <= 7 && upRightCol >= 0) {
+                if (Board.chessBoard[upRow][upRightCol] != null && Board.chessBoard[upRow][upRightCol].getName().equals(OpponentKing.getName())) {
+                    return true;
+                }
+            }
+            // check up-left
+            int upLeftCol = this.col - 1;
+            if (upRow <= 7 && upRow >= 0 && upLeftCol <= 7 && upLeftCol >= 0) {
+                return Board.chessBoard[upRow][upLeftCol] != null && Board.chessBoard[upRow][upLeftCol].getName().equals(OpponentKing.getName());
+            }
+        }
+        else {
+            int downRow = this.row - 1;
+            // check down-right
+            int downRightCol = this.col + 1;
+            if (downRow <= 7 && downRow >= 0 && downRightCol <= 7 && downRightCol >= 0) {
+                if (Board.chessBoard[downRow][downRightCol] != null && Board.chessBoard[downRow][downRightCol].getName().equals(OpponentKing.getName())) {
+                    return true;
+                }
+            }
+            // check down-left
+            int downLeftCol = this.col - 1;
+            if (downRow <= 7 && downRow >= 0 && downLeftCol <= 7 && downLeftCol >= 0) {
+                return Board.chessBoard[downRow][downLeftCol] != null && Board.chessBoard[downRow][downLeftCol].getName().equals(OpponentKing.getName());
+            }
+        }
         return false;
     }
 }

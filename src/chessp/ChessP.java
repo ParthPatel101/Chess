@@ -214,7 +214,93 @@ public abstract class ChessP {
         }
     }
 
-    abstract public String getName();
+    public boolean kingInCheckHorizontally(King OpponentKing) {
+        // check right
+        for (int i = this.col + 1; i <= 7; i++) {
+            if (Board.chessBoard[this.row][i] != null) {
+                if (Board.chessBoard[this.row][i].getName().equals(OpponentKing.getName())) {
+                    return true;
+                }
+                break;
+            }
+        }
+        // check left
+        for (int i = this.col - 1; i >= 0; i--) {
+            if (Board.chessBoard[this.row][i] != null) {
+                if (Board.chessBoard[this.row][i].getName().equals(OpponentKing.getName())) {
+                    return true;
+                }
+                break;
+            }
+        }
+        // no king in the way
+        return false;
+    }
+
+    public boolean kingInCheckVertically(King OpponentKing) {
+        // check up
+        for (int i = this.row + 1; i <= 7; i++) {
+            if (Board.chessBoard[i][this.col] != null) {
+                if (Board.chessBoard[i][this.col].getName().equals(OpponentKing.getName())) {
+                    return true;
+                }
+                break;
+            }
+        }
+        // check down
+        for (int i = this.row - 1; i >= 0; i--) {
+            if (Board.chessBoard[i][this.col] != null) {
+                if (Board.chessBoard[i][this.col].getName().equals(OpponentKing.getName())) {
+                    return true;
+                }
+                break;
+            }
+        }
+        // no king in the way
+        return false;
+    }
+    public boolean kingInCheckDiagonally(King OpponentKing) {
+        // check diag up and right
+        for (int i = this.row + 1, j = this.col + 1; i <= 7 && j <= 7; i++, j++) {
+            if (Board.chessBoard[i][j] != null) {
+                if (Board.chessBoard[i][j].getName().equals(OpponentKing.getName())) {
+                    return true;
+                }
+                break;
+            }
+        }
+        // check diag up and left
+        for (int i = this.row + 1, j = this.col - 1; i <= 7 && j >= 0; i++, j--) {
+            if (Board.chessBoard[i][j] != null) {
+                if (Board.chessBoard[i][j].getName().equals(OpponentKing.getName())) {
+                    return true;
+                }
+                break;
+            }
+        }
+        // check diag down and right
+        for (int i = this.row - 1, j = this.col + 1; i >= 0 && j <= 7; i--, j++) {
+            if (Board.chessBoard[i][j] != null) {
+                if (Board.chessBoard[i][j].getName().equals(OpponentKing.getName())) {
+                    return true;
+                }
+                break;
+            }
+        }
+        // check diag down and left
+        for (int i = this.row - 1, j = this.col - 1; i >= 0 && j >= 0; i--, j--) {
+            if (Board.chessBoard[i][j] != null) {
+                if (Board.chessBoard[i][j].getName().equals(OpponentKing.getName())) {
+                    return true;
+                }
+                break;
+            }
+        }
+        // no king in the way
+        return false;
+    }
+
+        abstract public String getName();
     abstract public boolean isFollowingPath(int col, int row);
     abstract public boolean isCheckingKing(King OpponentKing);
 }
