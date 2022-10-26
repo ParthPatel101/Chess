@@ -7,6 +7,7 @@ public class King extends ChessP {
     private final int[] possibleXMoves = { -1, -1, -1, 0, 0, 1, 1, 1};
     private final int[] possibleYMoves = { -1, 0, 1, -1, 1, -1, 0, 1};
     public boolean canCastle = true;
+    public boolean isCastling = false;
 
     public King(boolean isWhite, int row, int col) { super(isWhite, row, col); }
 
@@ -15,6 +16,9 @@ public class King extends ChessP {
 
     @Override
     public boolean isFollowingPath(int col, int row) {
+        if (isCastling) {
+            return true;
+        }
         // check if king has not castled yet
         if (canCastle) {
             // check if move is a castling move
@@ -22,28 +26,50 @@ public class King extends ChessP {
                 // castling left
                 if (this.col > col) {
                     if (Board.chessBoard[this.row][0] != null && Board.chessBoard[this.row][0].isWhite == this.isWhite && Board.chessBoard[this.row][0] instanceof Rook rook && rook.hasNotMoved) {
-                        for (int i = this.col - 1; i > 0; i--) {
-                            // check if there is an obstruction between the king and the rook
-                            if (Board.chessBoard[this.row][i] != null) {
-                                return false;
-                            } else if (this.willMovePutKingInCheck(i, this.row)) {
-                                return false;
-                            }
+                        // check if first move won't work
+                        if (Board.chessBoard[this.row][this.col - 1] != null) {
+                            return false;
                         }
+                        isCastling = true;
+                        if (this.willMovePutKingInCheck(this.col - 1, this.row)) {
+                            isCastling = false;
+                            return false;
+                        }
+                        // check if second move won't work
+                        if (Board.chessBoard[this.row][this.col - 2] != null) {
+                            return false;
+                        }
+                        isCastling = true;
+                        if (this.willMovePutKingInCheck(this.col - 2, this.row)) {
+                            isCastling = false;
+                            return false;
+                        }
+                        isCastling = false;
                         return true;
                     }
                 }
                 // castling right
                 else if (this.col < col) {
                     if (Board.chessBoard[this.row][7] != null && Board.chessBoard[this.row][7].isWhite == this.isWhite && Board.chessBoard[this.row][7] instanceof Rook rook && rook.hasNotMoved) {
-                        for (int i = this.col + 1; i < 7; i++) {
-                            // check if there is an obstruction between the king and the rook
-                            if (Board.chessBoard[this.row][i] != null) {
-                                return false;
-                            } else if (this.willMovePutKingInCheck(i, this.row)) {
-                                return false;
-                            }
+                        // check if first move won't work
+                        if (Board.chessBoard[this.row][this.col + 1] != null) {
+                            return false;
                         }
+                        isCastling = true;
+                        if (this.willMovePutKingInCheck(this.col + 1, this.row)) {
+                            isCastling = false;
+                            return false;
+                        }
+                        // check if second move won't work
+                        if (Board.chessBoard[this.row][this.col + 2] != null) {
+                            return false;
+                        }
+                        isCastling = true;
+                        if (this.willMovePutKingInCheck(this.col + 2, this.row)) {
+                            isCastling = false;
+                            return false;
+                        }
+                        isCastling = false;
                         return true;
                     }
                 }

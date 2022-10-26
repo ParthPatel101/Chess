@@ -12,6 +12,8 @@ public abstract class ChessP {
     public ChessP capturedLast;
     public boolean undoCapturedLast;
     public boolean undoPawnFirstMove;
+    public boolean undoRookFirstMove;
+    public boolean undoKingCastledMove;
 
     public ChessP(boolean isWhite, int row, int col) {
         this.isWhite = isWhite;
@@ -48,11 +50,29 @@ public abstract class ChessP {
         }
         // if the rook moved then they can't castle anymore with the king
         if (this instanceof Rook rook && rook.hasNotMoved) {
-                rook.hasNotMoved = false;
+            if (theoretical) this.undoRookFirstMove = true;
+            rook.hasNotMoved = false;
         }
         // if the king moved then they can't castle anymore
         if (this instanceof King king && king.canCastle) {
+            if (theoretical) this.undoKingCastledMove = true;
             king.canCastle = false;
+
+            // move rook to complete castling move
+            if (!theoretical && Math.abs(this.col - col) == 2) {
+                // castling left
+                if (this.col > col) {
+                    // move rook to the right to king
+                    Board.chessBoard[this.row][this.col - 1] = Board.chessBoard[this.row][0];
+                    Board.chessBoard[this.row][0] = null;
+                }
+                // castling right
+                else {
+                    // move rook to the left to king
+                    Board.chessBoard[this.row][this.col + 1] = Board.chessBoard[this.row][7];
+                    Board.chessBoard[this.row][7] = null;
+                }
+            }
         }
         Board.chessBoard[row][col] = this;
         Board.chessBoard[this.row][this.col] = null;
@@ -73,6 +93,16 @@ public abstract class ChessP {
             this.undoPawnFirstMove = false;
             Pawn pawn = (Pawn) this;
             pawn.firstMove = true;
+        }
+        if (this.undoRookFirstMove) {
+            this.undoRookFirstMove = false;
+            Rook rook = (Rook) this;
+            rook.hasNotMoved = true;
+        }
+        if (this.undoKingCastledMove) {
+            this.undoKingCastledMove = false;
+            King king = (King) this;
+            king.canCastle = true;
         }
         if (Board.chessBoard[this.row][this.col].equals(this)) {
             Board.chessBoard[this.row][this.col] = null;
@@ -308,7 +338,7 @@ public abstract class ChessP {
         return false;
     }
 
-        abstract public String getName();
+    abstract public String getName();
     abstract public boolean isFollowingPath(int col, int row);
     abstract public boolean isCheckingKing(King OpponentKing);
 }
