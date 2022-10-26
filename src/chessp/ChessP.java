@@ -65,12 +65,16 @@ public abstract class ChessP {
                     // move rook to the right to king
                     Board.chessBoard[this.row][this.col - 1] = Board.chessBoard[this.row][0];
                     Board.chessBoard[this.row][0] = null;
+                    Rook rook = (Rook) Board.chessBoard[this.row][this.col - 1];
+                    rook.hasNotMoved = false;
                 }
                 // castling right
                 else {
                     // move rook to the left to king
                     Board.chessBoard[this.row][this.col + 1] = Board.chessBoard[this.row][7];
                     Board.chessBoard[this.row][7] = null;
+                    Rook rook = (Rook) Board.chessBoard[this.row][this.col + 1];
+                    rook.hasNotMoved = false;
                 }
             }
         }
@@ -335,6 +339,19 @@ public abstract class ChessP {
             }
         }
         // no king in the way
+        return false;
+    }
+
+    public boolean kingInCheckByPossibleMoves(King OpponentKing, int [] possibleXMoves, int [] possibleYMoves) {
+        for (int i = 0; i < 8; i++) {
+            int checkRow = this.row + possibleXMoves[i];
+            int checkCol = this.col + possibleYMoves[i];
+            if (checkRow <= 7 && checkRow >= 0 && checkCol <= 7 && checkCol >= 0) {
+                if (Board.chessBoard[checkRow][checkCol] != null && Board.chessBoard[checkRow][checkCol].getName().equals(OpponentKing.getName())) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 

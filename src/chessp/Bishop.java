@@ -13,7 +13,7 @@ public class Bishop extends ChessP {
 
     @Override
     public boolean isFollowingPath(int col, int row) {
-        // check if the move is in the diagonal plane of the queen (reuse for bishop)
+        // check if the move is in the diagonal plane
         if (Math.abs(row - this.row) == Math.abs(col - this.col)) {
             return canMoveDiagonally(col, row);
         }

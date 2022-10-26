@@ -14,11 +14,11 @@ public class Rook extends ChessP {
 
     @Override
     public boolean isFollowingPath(int col, int row) {
-        // check if the move is in the horizontal plane of queen (reuse for rook)
+        // check if the move is in the horizontal plane
         if (row == this.row) {
             return canMoveHorizontally(col, row);
         }
-        // check if the move is in the vertical plane of queen (reuse for rook, pawn [with modification])
+        // check if the move is in the vertical plane
         if (col == this.col) {
             return canMoveVertically(col, row);
         }

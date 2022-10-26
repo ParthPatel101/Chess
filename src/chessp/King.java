@@ -86,16 +86,7 @@ public class King extends ChessP {
 
     @Override
     public boolean isCheckingKing(King OpponentKing) {
-        for (int i = 0; i < 8; i++) {
-            int checkRow = this.row + this.possibleXMoves[i];
-            int checkCol = this.col + this.possibleYMoves[i];
-            if (checkRow <= 7 && checkRow >= 0 && checkCol <= 7 && checkCol >= 0) {
-                if (Board.chessBoard[checkRow][checkCol] != null && Board.chessBoard[checkRow][checkCol].getName().equals(OpponentKing.getName())) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return kingInCheckByPossibleMoves(OpponentKing, this.possibleXMoves, this.possibleYMoves);
     }
 }
 
