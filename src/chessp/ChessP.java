@@ -46,6 +46,14 @@ public abstract class ChessP {
                 pawn.firstMove = false;
             }
         }
+        // if the rook moved then they can't castle anymore with the king
+        if (this instanceof Rook rook && rook.hasNotMoved) {
+                rook.hasNotMoved = false;
+        }
+        // if the king moved then they can't castle anymore
+        if (this instanceof King king && king.canCastle) {
+            king.canCastle = false;
+        }
         Board.chessBoard[row][col] = this;
         Board.chessBoard[this.row][this.col] = null;
         this.prevRow = this.row;

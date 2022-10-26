@@ -6,7 +6,7 @@ public class King extends ChessP {
 
     private final int[] possibleXMoves = { -1, -1, -1, 0, 0, 1, 1, 1};
     private final int[] possibleYMoves = { -1, 0, 1, -1, 1, -1, 0, 1};
-    public int castling = 0; // 0 means not yet castled, 1 means they have castled, -1 means they are not allowed to castle
+    public boolean canCastle = true;
 
     public King(boolean isWhite, int row, int col) { super(isWhite, row, col); }
 
@@ -16,25 +16,38 @@ public class King extends ChessP {
     @Override
     public boolean isFollowingPath(int col, int row) {
         // check if king has not castled yet
-        if (castling == 0) {
-            // castling left
-            if (this.col > col) {
-                if (Board.chessBoard[this.row][0] != null && Board.chessBoard[this.row][0] instanceof Rook && Board.chessBoard[this.row][0].isWhite == this.isWhite) {
-                    for (int i = this.col; i > 0; i--) {
-                        // check if there is an obstruction between the king and the rook
+        if (canCastle) {
+            // check if move is a castling move
+            if (Math.abs(this.col - col) == 2) {
+                // castling left
+                if (this.col > col) {
+                    if (Board.chessBoard[this.row][0] != null && Board.chessBoard[this.row][0].isWhite == this.isWhite && Board.chessBoard[this.row][0] instanceof Rook rook && rook.hasNotMoved) {
+                        for (int i = this.col - 1; i > 0; i--) {
+                            // check if there is an obstruction between the king and the rook
+                            if (Board.chessBoard[this.row][i] != null) {
+                                return false;
+                            } else if (this.willMovePutKingInCheck(i, this.row)) {
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
+                }
+                // castling right
+                else if (this.col < col) {
+                    if (Board.chessBoard[this.row][7] != null && Board.chessBoard[this.row][7].isWhite == this.isWhite && Board.chessBoard[this.row][7] instanceof Rook rook && rook.hasNotMoved) {
+                        for (int i = this.col + 1; i < 7; i++) {
+                            // check if there is an obstruction between the king and the rook
+                            if (Board.chessBoard[this.row][i] != null) {
+                                return false;
+                            } else if (this.willMovePutKingInCheck(i, this.row)) {
+                                return false;
+                            }
+                        }
+                        return true;
                     }
                 }
             }
-            else if (this.col < col) {
-
-            }
-            // if the move is a castling move && it works
-            // castling = 1
-            // return true;
-
-            // else if the move is a not castling move && it works
-            // castling = -1
-            // return true;
         }
 
         for (int i = 0; i < 8; i++) {

@@ -1,6 +1,8 @@
 package chessp;
 
 public class Rook extends ChessP {
+
+    public boolean hasNotMoved = true;
     public Rook(boolean isWhite, int row, int col) {
         super(isWhite, row, col);
     }
