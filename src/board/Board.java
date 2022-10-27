@@ -94,8 +94,16 @@ public abstract class Board {
                 }
             }
             whiteTurn = !whiteTurn;
-//        return !whiteKing.checkMate && !blackKing.checkMate;
-
+            if (whiteTurn && whiteKing.isCheckMated()) {
+                System.out.println("Checkmate");
+                System.out.println("Black wins");
+                gameRunning = false;
+            }
+            else if (!whiteTurn && blackKing.isCheckMated()) {
+                System.out.println("Checkmate");
+                System.out.println("White wins");
+                gameRunning = false;
+            }
         }
     }
 
