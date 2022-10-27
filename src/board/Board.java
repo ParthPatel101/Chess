@@ -94,12 +94,11 @@ public abstract class Board {
                 }
             }
             whiteTurn = !whiteTurn;
-            if (whiteTurn && whiteKing.isCheckMated()) {
+            if (whiteTurn && isCheckMated(true)) {
                 System.out.println("Checkmate");
                 System.out.println("Black wins");
                 gameRunning = false;
-            }
-            else if (!whiteTurn && blackKing.isCheckMated()) {
+            } else if (!whiteTurn && isCheckMated(false)) {
                 System.out.println("Checkmate");
                 System.out.println("White wins");
                 gameRunning = false;
@@ -206,6 +205,11 @@ public abstract class Board {
                 if (i.in_game && i.isCheckingKing(blackKing)) return true;
             }
         }
+        return false;
+    }
+
+    public static boolean isCheckMated(boolean isWhite) {
+        /* Implement */
         return false;
     }
 }
