@@ -1,8 +1,8 @@
 package chessp;
 
 public class Knight extends ChessP {
-    private final int[] possibleXMoves = {2, 1, -1, -2, -2, -1, 1, 2};
-    private final int[] possibleYMoves = {1, 2, 2, 1, -1, -2, -2, -1};
+    public static final int[] possibleXMoves = {2, 1, -1, -2, -2, -1, 1, 2};
+    public static final int[] possibleYMoves = {1, 2, 2, 1, -1, -2, -2, -1};
 
     public Knight(boolean isWhite, int row, int col) {
         super(isWhite, row, col);
@@ -26,7 +26,7 @@ public class Knight extends ChessP {
 
     @Override
     public boolean isCheckingKing(King OpponentKing) {
-        return kingInCheckByPossibleMoves(OpponentKing, this.possibleXMoves, this.possibleYMoves);
+        return kingInCheckByPossibleMoves(OpponentKing, possibleXMoves, possibleYMoves);
     }
 }
 

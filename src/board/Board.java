@@ -209,8 +209,30 @@ public abstract class Board {
     }
 
     public static boolean isCheckMated(boolean isWhite) {
-        /* Implement */
-        return false;
+        // check if king is even in check or not
+        if (!is_inCheck(isWhite)) {
+            return false;
+        }
+
+        // check if king can move anywhere to uncheck
+        if (isWhite) {
+            for (int i = 0; i < 8; i++) {
+                if (!whiteKing.willMovePutKingInCheck(whiteKing.col + King.possibleYMoves[i], whiteKing.row + King.possibleXMoves[i])) {
+                    return false;
+                }
+            }
+        } else {
+            for (int i = 0; i < 8; i++) {
+                if (!blackKing.willMovePutKingInCheck(blackKing.col + King.possibleYMoves[i], blackKing.row + King.possibleXMoves[i])) {
+                    return false;
+                }
+            }
+        }
+
+        // check if any pieces can move in the way to block check
+
+        // if all efforts to uncheck king fail then checkmate
+        return true;
     }
 }
 

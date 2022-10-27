@@ -4,8 +4,8 @@ import board.Board;
 
 public class King extends ChessP {
 
-    private final int[] possibleXMoves = {-1, -1, -1, 0, 0, 1, 1, 1};
-    private final int[] possibleYMoves = {-1, 0, 1, -1, 1, -1, 0, 1};
+    public static final int[] possibleXMoves = {-1, -1, -1, 0, 0, 1, 1, 1};
+    public static final int[] possibleYMoves = {-1, 0, 1, -1, 1, -1, 0, 1};
     public boolean canCastle = true;
     public boolean isCastling = false;
 
@@ -90,7 +90,7 @@ public class King extends ChessP {
 
     @Override
     public boolean isCheckingKing(King OpponentKing) {
-        return kingInCheckByPossibleMoves(OpponentKing, this.possibleXMoves, this.possibleYMoves);
+        return kingInCheckByPossibleMoves(OpponentKing, possibleXMoves, possibleYMoves);
     }
 }
 
