@@ -233,16 +233,8 @@ public abstract class Board {
         if (isWhite) {
             for (ChessP piece : whitePieces) {
                 if (piece.in_game) {
-                    // check if Knight can block check
-                    if (piece instanceof Knight knight) {
-                        for (int i = 0; i < 8; i++) {
-                            if (knight.willMoveBlockCheck(knight.col + Knight.possibleYMoves[i], knight.row + Knight.possibleXMoves[i])) {
-                                return false;
-                            }
-                        }
-                    }
                     // check if Pawn can block check
-                    else if (piece instanceof Pawn pawn) {
+                    if (piece instanceof Pawn pawn) {
                         // check 1 space above
                         if (pawn.willMoveBlockCheck(pawn.col, pawn.row + 1)) {
                             return false;
@@ -258,6 +250,14 @@ public abstract class Board {
                         // check up left (capture move)
                         if (pawn.willMoveBlockCheck(pawn.col - 1, pawn.row + 1)) {
                             return false;
+                        }
+                    }
+                    // check if Knight can block check
+                    else if (piece instanceof Knight knight) {
+                        for (int i = 0; i < 8; i++) {
+                            if (knight.willMoveBlockCheck(knight.col + Knight.possibleYMoves[i], knight.row + Knight.possibleXMoves[i])) {
+                                return false;
+                            }
                         }
                     }
                     // check if Bishop can block check
@@ -344,16 +344,8 @@ public abstract class Board {
         } else {
             for (ChessP piece : blackPieces) {
                 if (piece.in_game) {
-                    // check if Knight can block check
-                    if (piece instanceof Knight knight) {
-                        for (int i = 0; i < 8; i++) {
-                            if (knight.willMoveBlockCheck(knight.col + Knight.possibleYMoves[i], knight.row + Knight.possibleXMoves[i])) {
-                                return false;
-                            }
-                        }
-                    }
                     // check if Pawn can block check
-                    else if (piece instanceof Pawn pawn) {
+                    if (piece instanceof Pawn pawn) {
                         // check 1 space below
                         if (pawn.willMoveBlockCheck(pawn.col, pawn.row - 1)) {
                             return false;
@@ -369,6 +361,14 @@ public abstract class Board {
                         // check down left (capture move)
                         if (pawn.willMoveBlockCheck(pawn.col - 1, pawn.row - 1)) {
                             return false;
+                        }
+                    }
+                    // check if Knight can block check
+                    else if (piece instanceof Knight knight) {
+                        for (int i = 0; i < 8; i++) {
+                            if (knight.willMoveBlockCheck(knight.col + Knight.possibleYMoves[i], knight.row + Knight.possibleXMoves[i])) {
+                                return false;
+                            }
                         }
                     }
                     // check if Bishop can block check
