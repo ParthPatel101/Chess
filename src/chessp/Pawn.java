@@ -5,6 +5,7 @@ import board.Board;
 public class Pawn extends ChessP {
 
     public boolean firstMove = true;
+    public boolean ableToEnPassant = false;
     public Pawn(boolean isWhite, int row, int col) {
         super(isWhite, row, col);
     }
@@ -40,6 +41,13 @@ public class Pawn extends ChessP {
             }
             else {
                 if ((row - this.row) == 1 && Math.abs(col - this.col) == 1) {
+                    // check for en passant (only can happen on row 5 for white)
+                    if (row == 4) {
+                        // piece next to pawn
+                        if (Board.chessBoard[row - 1][col] != null && Board.chessBoard[row - 1][col] instanceof Pawn pawn && !pawn.isWhite && pawn.ableToEnPassant) {
+                            return true;
+                        }
+                    }
                     // check if there is a black enemy
                     return Board.chessBoard[row][col] != null && !Board.chessBoard[row][col].isWhite;
                 }
@@ -68,11 +76,19 @@ public class Pawn extends ChessP {
             }
             else {
                 if ((this.row - row) == 1 && Math.abs(col - this.col) == 1) {
+                    // check for en passant (only can happen on row 5 for white)
+                    if (row == 3) {
+                        // piece next to pawn
+                        if (Board.chessBoard[row + 1][col] != null && Board.chessBoard[row + 1][col] instanceof Pawn pawn && !pawn.isWhite && pawn.ableToEnPassant) {
+                            return true;
+                        }
+                    }
                     // check if there is a white enemy
                     return Board.chessBoard[row][col] != null && Board.chessBoard[row][col].isWhite;
                 }
             }
         }
+
         // if none of these moves work then return false
         return false;
     }

@@ -46,6 +46,15 @@ public abstract class ChessP {
             if (pawn.firstMove) {
                 if (theoretical) this.undoPawnFirstMove = true;
                 pawn.firstMove = false;
+                // pawn moved 2 so they can be en passant
+                if (Math.abs(col - this.col) == 2) {
+                    pawn.ableToEnPassant = true;
+                }
+            }
+            else {
+                if (!theoretical) {
+                    pawn.ableToEnPassant = false;
+                }
             }
         }
         // if the rook moved then they can't castle anymore with the king
@@ -97,6 +106,7 @@ public abstract class ChessP {
             this.undoPawnFirstMove = false;
             Pawn pawn = (Pawn) this;
             pawn.firstMove = true;
+            pawn.ableToEnPassant = false;
         }
         if (this.undoRookFirstMove) {
             this.undoRookFirstMove = false;
