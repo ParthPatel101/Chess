@@ -4,15 +4,19 @@ import board.Board;
 
 public class King extends ChessP {
 
-    private final int[] possibleXMoves = { -1, -1, -1, 0, 0, 1, 1, 1};
-    private final int[] possibleYMoves = { -1, 0, 1, -1, 1, -1, 0, 1};
+    private final int[] possibleXMoves = {-1, -1, -1, 0, 0, 1, 1, 1};
+    private final int[] possibleYMoves = {-1, 0, 1, -1, 1, -1, 0, 1};
     public boolean canCastle = true;
     public boolean isCastling = false;
 
-    public King(boolean isWhite, int row, int col) { super(isWhite, row, col); }
+    public King(boolean isWhite, int row, int col) {
+        super(isWhite, row, col);
+    }
 
     @Override
-    public String getName() { return this.isWhite ? "wK" : "bK"; }
+    public String getName() {
+        return this.isWhite ? "wK" : "bK";
+    }
 
     @Override
     public boolean isFollowingPath(int col, int row) {

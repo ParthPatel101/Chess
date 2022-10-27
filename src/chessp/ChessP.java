@@ -50,8 +50,7 @@ public abstract class ChessP {
                 if (Math.abs(col - this.col) == 2) {
                     pawn.ableToEnPassant = true;
                 }
-            }
-            else {
+            } else {
                 if (!theoretical) {
                     pawn.ableToEnPassant = false;
                 }
@@ -311,6 +310,7 @@ public abstract class ChessP {
         // no king in the way
         return false;
     }
+
     public boolean kingInCheckDiagonally(King OpponentKing) {
         // check diag up and right
         for (int i = this.row + 1, j = this.col + 1; i <= 7 && j <= 7; i++, j++) {
@@ -352,7 +352,7 @@ public abstract class ChessP {
         return false;
     }
 
-    public boolean kingInCheckByPossibleMoves(King OpponentKing, int [] possibleXMoves, int [] possibleYMoves) {
+    public boolean kingInCheckByPossibleMoves(King OpponentKing, int[] possibleXMoves, int[] possibleYMoves) {
         for (int i = 0; i < 8; i++) {
             int checkRow = this.row + possibleXMoves[i];
             int checkCol = this.col + possibleYMoves[i];
@@ -366,6 +366,8 @@ public abstract class ChessP {
     }
 
     abstract public String getName();
+
     abstract public boolean isFollowingPath(int col, int row);
+
     abstract public boolean isCheckingKing(King OpponentKing);
 }

@@ -1,10 +1,12 @@
 package chessp;
 
 public class Knight extends ChessP {
-    private final int[] possibleXMoves = { 2, 1, -1, -2, -2, -1, 1, 2 };
-    private final int[] possibleYMoves = { 1, 2, 2, 1, -1, -2, -2, -1 };
+    private final int[] possibleXMoves = {2, 1, -1, -2, -2, -1, 1, 2};
+    private final int[] possibleYMoves = {1, 2, 2, 1, -1, -2, -2, -1};
 
-    public Knight(boolean isWhite, int row, int col) { super(isWhite, row, col); }
+    public Knight(boolean isWhite, int row, int col) {
+        super(isWhite, row, col);
+    }
 
     @Override
     public String getName() {

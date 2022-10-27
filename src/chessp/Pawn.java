@@ -6,6 +6,7 @@ public class Pawn extends ChessP {
 
     public boolean firstMove = true;
     public boolean ableToEnPassant = false;
+
     public Pawn(boolean isWhite, int row, int col) {
         super(isWhite, row, col);
     }
@@ -38,8 +39,7 @@ public class Pawn extends ChessP {
             // check if we are moving vertically
             if (this.col == col) {
                 return (row - this.row) == 1 && Board.chessBoard[row][col] == null;
-            }
-            else {
+            } else {
                 if ((row - this.row) == 1 && Math.abs(col - this.col) == 1) {
                     // check for en passant (only can happen on row 5 for white)
                     if (row == 4) {
@@ -52,8 +52,7 @@ public class Pawn extends ChessP {
                     return Board.chessBoard[row][col] != null && !Board.chessBoard[row][col].isWhite;
                 }
             }
-        }
-        else {
+        } else {
             // check if first move
             if (this.firstMove) {
                 // check if we are moving vertically
@@ -73,8 +72,7 @@ public class Pawn extends ChessP {
             // check if we are moving vertically
             if (this.col == col) {
                 return (this.row - row) == 1 && Board.chessBoard[row][col] == null;
-            }
-            else {
+            } else {
                 if ((this.row - row) == 1 && Math.abs(col - this.col) == 1) {
                     // check for en passant (only can happen on row 5 for white)
                     if (row == 3) {
@@ -109,8 +107,7 @@ public class Pawn extends ChessP {
             if (upRow <= 7 && upRow >= 0 && upLeftCol <= 7 && upLeftCol >= 0) {
                 return Board.chessBoard[upRow][upLeftCol] != null && Board.chessBoard[upRow][upLeftCol].getName().equals(OpponentKing.getName());
             }
-        }
-        else {
+        } else {
             int downRow = this.row - 1;
             // check down-right
             int downRightCol = this.col + 1;

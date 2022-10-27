@@ -29,8 +29,7 @@ public abstract class Board {
                     gameRunning = false;
                     System.out.println("draw");
                     break;
-                }
-                else {
+                } else {
                     // if player does not confirm the draw it will not stop asking them until they input "draw"
                     continue;
                 }
@@ -38,26 +37,23 @@ public abstract class Board {
             if (input.equals("resign")) {
                 if (whiteTurn) {
                     System.out.println("Black wins");
-                }
-                else {
+                } else {
                     System.out.println("White wins");
                 }
                 gameRunning = false;
                 break;
-            }
-            else if (input.contains("draw?")) {
+            } else if (input.contains("draw?")) {
                 draw = true;
 
                 print_board();
-            }
-            else {
+            } else {
                 String[] arr = input.split(" ");
 
-                int fromRow = Integer.parseInt(arr[0].substring(1,2)) - 1;
-                int fromCol = convertLetterToNumber(arr[0].substring(0,1));
+                int fromRow = Integer.parseInt(arr[0].substring(1, 2)) - 1;
+                int fromCol = convertLetterToNumber(arr[0].substring(0, 1));
 
-                int toRow = Integer.parseInt(arr[1].substring(1,2)) - 1;
-                int toCol = convertLetterToNumber(arr[1].substring(0,1));
+                int toRow = Integer.parseInt(arr[1].substring(1, 2)) - 1;
+                int toCol = convertLetterToNumber(arr[1].substring(0, 1));
 
                 if (chessBoard[fromRow][fromCol] == null) {
                     System.out.println("Illegal move, try again");
@@ -77,7 +73,7 @@ public abstract class Board {
                 }
 
                 try {
-                    movingPiece.move(toCol, toRow,false);
+                    movingPiece.move(toCol, toRow, false);
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                     continue;
@@ -120,32 +116,32 @@ public abstract class Board {
         chessBoard = new ChessP[8][8];
         // initialize the Whites and Blacks arrays with their respective Chess Piece Objects and stored pieces based on game order
         blackPieces = new ChessP[16];
-         blackPieces[0] = new Rook(false, 7, 0);
-         blackPieces[1] = new Knight(false, 7, 1);
-         blackPieces[2] = new Bishop(false, 7, 2);
-         blackPieces[3] = new Queen(false, 7, 3);
-         blackPieces[4] = new King(false, 7, 4);
-         blackKing = (King) blackPieces[4];
-         blackPieces[5] = new Bishop(false, 7, 5);
-         blackPieces[6] = new Knight(false, 7, 6);
-         blackPieces[7] = new Rook(false, 7, 7);
-         for (int i = 0; i < 8; i++) {
-             blackPieces[i+8] = new Pawn(false, 6, i);
-         }
+        blackPieces[0] = new Rook(false, 7, 0);
+        blackPieces[1] = new Knight(false, 7, 1);
+        blackPieces[2] = new Bishop(false, 7, 2);
+        blackPieces[3] = new Queen(false, 7, 3);
+        blackPieces[4] = new King(false, 7, 4);
+        blackKing = (King) blackPieces[4];
+        blackPieces[5] = new Bishop(false, 7, 5);
+        blackPieces[6] = new Knight(false, 7, 6);
+        blackPieces[7] = new Rook(false, 7, 7);
+        for (int i = 0; i < 8; i++) {
+            blackPieces[i + 8] = new Pawn(false, 6, i);
+        }
 
-         whitePieces = new ChessP[16]; // order this based on the game order [rook, knight, bishop, queen, king ..., pawn, pawn, pawn ...]
-         whitePieces[0] = new Rook(true, 0, 0);
-         whitePieces[1] = new Knight(true, 0, 1);
-         whitePieces[2] = new Bishop(true, 0, 2);
-         whitePieces[3] = new Queen(true, 0, 3);
-         whitePieces[4] = new King(true, 0, 4);
-         whiteKing = (King) whitePieces[4];
-         whitePieces[5] = new Bishop(true, 0, 5);
-         whitePieces[6] = new Knight(true, 0, 6);
-         whitePieces[7] = new Rook(true, 0, 7);
-         for (int i = 0; i < 8; i++) {
-             whitePieces[i+8] = new Pawn(true, 1, i);
-         }
+        whitePieces = new ChessP[16]; // order this based on the game order [rook, knight, bishop, queen, king ..., pawn, pawn, pawn ...]
+        whitePieces[0] = new Rook(true, 0, 0);
+        whitePieces[1] = new Knight(true, 0, 1);
+        whitePieces[2] = new Bishop(true, 0, 2);
+        whitePieces[3] = new Queen(true, 0, 3);
+        whitePieces[4] = new King(true, 0, 4);
+        whiteKing = (King) whitePieces[4];
+        whitePieces[5] = new Bishop(true, 0, 5);
+        whitePieces[6] = new Knight(true, 0, 6);
+        whitePieces[7] = new Rook(true, 0, 7);
+        for (int i = 0; i < 8; i++) {
+            whitePieces[i + 8] = new Pawn(true, 1, i);
+        }
         // store reference to the white and black kings in Board.WhiteKing and Board.BlackKing
         for (int row = 7; row >= 0; row--) {
             for (int col = 0; col < 8; col++) {
