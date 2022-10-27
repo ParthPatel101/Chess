@@ -230,6 +230,229 @@ public abstract class Board {
         }
 
         // check if any pieces can move in the way to block check
+        if (isWhite) {
+            for (ChessP piece : whitePieces) {
+                if (piece.in_game) {
+                    // check if Knight can block check
+                    if (piece instanceof Knight knight) {
+                        for (int i = 0; i < 8; i++) {
+                            if (knight.willMoveBlockCheck(knight.col + Knight.possibleYMoves[i], knight.row + Knight.possibleXMoves[i])) {
+                                return false;
+                            }
+                        }
+                    }
+                    // check if Pawn can block check
+                    else if (piece instanceof Pawn pawn) {
+                        // check 1 space above
+                        if (pawn.willMoveBlockCheck(pawn.col, pawn.row + 1)) {
+                            return false;
+                        }
+                        // check 2 space above (if pawn has not moved yet)
+                        if (pawn.firstMove && pawn.willMoveBlockCheck(pawn.col, pawn.row + 2)) {
+                            return false;
+                        }
+                        // check up right (capture move)
+                        if (pawn.willMoveBlockCheck(pawn.col + 1, pawn.row + 1)) {
+                            return false;
+                        }
+                        // check up left (capture move)
+                        if (pawn.willMoveBlockCheck(pawn.col - 1, pawn.row + 1)) {
+                            return false;
+                        }
+                    }
+                    // check if Bishop can block check
+                    else if (piece instanceof Bishop bishop) {
+                        for (int i = 1; i < 8; i++) {
+                            // diag up and right
+                            if (bishop.willMoveBlockCheck(bishop.col + i, bishop.row + i)) {
+                                return false;
+                            }
+                            // diag up and left
+                            if (bishop.willMoveBlockCheck(bishop.col - i, bishop.row + i)) {
+                                return false;
+                            }
+                            // diag down and right
+                            if (bishop.willMoveBlockCheck(bishop.col + i, bishop.row - i)) {
+                                return false;
+                            }
+                            // diag down and left
+                            if (bishop.willMoveBlockCheck(bishop.col - i, bishop.row - i)) {
+                                return false;
+                            }
+                        }
+                    }
+                    // check if Rook can block check
+                    else if (piece instanceof Rook rook) {
+                        for (int i = 1; i < 8; i++) {
+                            // up
+                            if (rook.willMoveBlockCheck(rook.col, rook.row + i)) {
+                                return false;
+                            }
+                            // down
+                            if (rook.willMoveBlockCheck(rook.col, rook.row - i)) {
+                                return false;
+                            }
+                            // right
+                            if (rook.willMoveBlockCheck(rook.col + i, rook.row)) {
+                                return false;
+                            }
+                            // left
+                            if (rook.willMoveBlockCheck(rook.col - i, rook.row)) {
+                                return false;
+                            }
+                        }
+                    }
+                    // check if Queen can block check
+                    else if (piece instanceof Queen queen) {
+                        for (int i = 1; i < 8; i++) {
+                            // up
+                            if (queen.willMoveBlockCheck(queen.col, queen.row + i)) {
+                                return false;
+                            }
+                            // down
+                            if (queen.willMoveBlockCheck(queen.col, queen.row - i)) {
+                                return false;
+                            }
+                            // right
+                            if (queen.willMoveBlockCheck(queen.col + i, queen.row)) {
+                                return false;
+                            }
+                            // left
+                            if (queen.willMoveBlockCheck(queen.col - i, queen.row)) {
+                                return false;
+                            }
+                            // diag up and right
+                            if (queen.willMoveBlockCheck(queen.col + i, queen.row + i)) {
+                                return false;
+                            }
+                            // diag up and left
+                            if (queen.willMoveBlockCheck(queen.col - i, queen.row + i)) {
+                                return false;
+                            }
+                            // diag down and right
+                            if (queen.willMoveBlockCheck(queen.col + i, queen.row - i)) {
+                                return false;
+                            }
+                            // diag down and left
+                            if (queen.willMoveBlockCheck(queen.col - i, queen.row - i)) {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            for (ChessP piece : blackPieces) {
+                if (piece.in_game) {
+                    // check if Knight can block check
+                    if (piece instanceof Knight knight) {
+                        for (int i = 0; i < 8; i++) {
+                            if (knight.willMoveBlockCheck(knight.col + Knight.possibleYMoves[i], knight.row + Knight.possibleXMoves[i])) {
+                                return false;
+                            }
+                        }
+                    }
+                    // check if Pawn can block check
+                    else if (piece instanceof Pawn pawn) {
+                        // check 1 space below
+                        if (pawn.willMoveBlockCheck(pawn.col, pawn.row - 1)) {
+                            return false;
+                        }
+                        // check 2 space below (if pawn has not moved yet)
+                        if (pawn.firstMove && pawn.willMoveBlockCheck(pawn.col, pawn.row - 2)) {
+                            return false;
+                        }
+                        // check down right (capture move)
+                        if (pawn.willMoveBlockCheck(pawn.col + 1, pawn.row - 1)) {
+                            return false;
+                        }
+                        // check down left (capture move)
+                        if (pawn.willMoveBlockCheck(pawn.col - 1, pawn.row - 1)) {
+                            return false;
+                        }
+                    }
+                    // check if Bishop can block check
+                    else if (piece instanceof Bishop bishop) {
+                        for (int i = 1; i < 8; i++) {
+                            // diag up and right
+                            if (bishop.willMoveBlockCheck(bishop.col + i, bishop.row + i)) {
+                                return false;
+                            }
+                            // diag up and left
+                            if (bishop.willMoveBlockCheck(bishop.col - i, bishop.row + i)) {
+                                return false;
+                            }
+                            // diag down and right
+                            if (bishop.willMoveBlockCheck(bishop.col + i, bishop.row - i)) {
+                                return false;
+                            }
+                            // diag down and left
+                            if (bishop.willMoveBlockCheck(bishop.col - i, bishop.row - i)) {
+                                return false;
+                            }
+                        }
+                    }
+                    // check if Rook can block check
+                    else if (piece instanceof Rook rook) {
+                        for (int i = 1; i < 8; i++) {
+                            // up
+                            if (rook.willMoveBlockCheck(rook.col, rook.row + i)) {
+                                return false;
+                            }
+                            // down
+                            if (rook.willMoveBlockCheck(rook.col, rook.row - i)) {
+                                return false;
+                            }
+                            // right
+                            if (rook.willMoveBlockCheck(rook.col + i, rook.row)) {
+                                return false;
+                            }
+                            // left
+                            if (rook.willMoveBlockCheck(rook.col - i, rook.row)) {
+                                return false;
+                            }
+                        }
+                    }
+                    // check if Queen can block check
+                    else if (piece instanceof Queen queen) {
+                        for (int i = 1; i < 8; i++) {
+                            // up
+                            if (queen.willMoveBlockCheck(queen.col, queen.row + i)) {
+                                return false;
+                            }
+                            // down
+                            if (queen.willMoveBlockCheck(queen.col, queen.row - i)) {
+                                return false;
+                            }
+                            // right
+                            if (queen.willMoveBlockCheck(queen.col + i, queen.row)) {
+                                return false;
+                            }
+                            // left
+                            if (queen.willMoveBlockCheck(queen.col - i, queen.row)) {
+                                return false;
+                            }
+                            // diag up and right
+                            if (queen.willMoveBlockCheck(queen.col + i, queen.row + i)) {
+                                return false;
+                            }
+                            // diag up and left
+                            if (queen.willMoveBlockCheck(queen.col - i, queen.row + i)) {
+                                return false;
+                            }
+                            // diag down and right
+                            if (queen.willMoveBlockCheck(queen.col + i, queen.row - i)) {
+                                return false;
+                            }
+                            // diag down and left
+                            if (queen.willMoveBlockCheck(queen.col - i, queen.row - i)) {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         // if all efforts to uncheck king fail then checkmate
         return true;
