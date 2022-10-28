@@ -2,6 +2,7 @@ package chessp;
 
 /**
  * queen chess piece
+ * @author Parth Patel, Yash Patel
  */
 public class Queen extends ChessP {
     /**

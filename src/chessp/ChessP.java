@@ -4,6 +4,7 @@ import board.Board;
 
 /**
  * Stores information about the chess piece and offers methods that operate on the chess piece
+ * @author Parth Patel, Yash Patel
  */
 public abstract class ChessP {
     /**

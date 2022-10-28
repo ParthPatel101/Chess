@@ -5,6 +5,7 @@ import board.Board;
 
 /**
  * Main application class
+ * @author Parth Patel, Yash Patel
  */
 public class Chess {
     /**

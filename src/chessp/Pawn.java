@@ -4,6 +4,7 @@ import board.Board;
 
 /**
  * pawn chess piece
+ * @author Parth Patel, Yash Patel
  */
 public class Pawn extends ChessP {
 

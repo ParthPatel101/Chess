@@ -2,6 +2,7 @@ package chessp;
 
 /**
  * rook chess piece
+ * @author Parth Patel, Yash Patel
  */
 public class Rook extends ChessP {
 

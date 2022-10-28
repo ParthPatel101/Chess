@@ -1,5 +1,4 @@
 package board;
-
 import chessp.*;
 
 import java.util.Scanner;
@@ -8,6 +7,7 @@ import java.util.Scanner;
  * This class acts as the supervisor of the game, keeping information about the state of the game
  * It also offers general methods that operate on the board
  * This class cannot be inherited or instantiated, meaning it is purely static
+ * @author Parth Patel, Yash Patel
  */
 public final class Board {
     /**

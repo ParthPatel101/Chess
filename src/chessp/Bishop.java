@@ -2,6 +2,7 @@ package chessp;
 
 /**
  * Bishop chess piece
+ * @author Parth Patel, Yash Patel
  */
 public class Bishop extends ChessP {
 
