@@ -2,6 +2,7 @@ package chessp;
 
 /**
  * rook chess piece
+ *
  * @author Parth Patel, Yash Patel
  */
 public class Rook extends ChessP {
@@ -21,11 +22,19 @@ public class Rook extends ChessP {
         super(isWhite, row, col);
     }
 
+    /**
+     * @return name of rook based on color
+     */
     @Override
     public String getName() {
         return this.isWhite ? "wR" : "bR";
     }
 
+    /**
+     * @param col destination column index on the board
+     * @param row destination row index on the board
+     * @return if the destination is possible based on the rook's path
+     */
     @Override
     public boolean isFollowingPath(int col, int row) {
         // check if the move is in the horizontal plane
@@ -40,6 +49,10 @@ public class Rook extends ChessP {
         return false;
     }
 
+    /**
+     * @param OpponentKing reference to the opponent king
+     * @return if the piece is checking the opponent king
+     */
     @Override
     public boolean isCheckingKing(King OpponentKing) {
         return (kingInCheckHorizontally(OpponentKing) || kingInCheckVertically(OpponentKing));

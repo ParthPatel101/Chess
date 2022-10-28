@@ -2,6 +2,7 @@ package chessp;
 
 /**
  * knight chess piece
+ *
  * @author Parth Patel, Yash Patel
  */
 public class Knight extends ChessP {
@@ -24,11 +25,19 @@ public class Knight extends ChessP {
         super(isWhite, row, col);
     }
 
+    /**
+     * @return name of knight based on color
+     */
     @Override
     public String getName() {
         return this.isWhite ? "wN" : "bN";
     }
 
+    /**
+     * @param col destination column index on the board
+     * @param row destination row index on the board
+     * @return if the destination is possible based on the knight's path
+     */
     @Override
     public boolean isFollowingPath(int col, int row) {
         for (int i = 0; i < 8; i++) {
@@ -40,6 +49,10 @@ public class Knight extends ChessP {
         return false;
     }
 
+    /**
+     * @param OpponentKing reference to the opponent king
+     * @return if the piece is checking the opponent king
+     */
     @Override
     public boolean isCheckingKing(King OpponentKing) {
         return kingInCheckByPossibleMoves(OpponentKing, possibleXMoves, possibleYMoves);

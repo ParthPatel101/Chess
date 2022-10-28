@@ -4,6 +4,7 @@ import board.Board;
 
 /**
  * Stores information about the chess piece and offers methods that operate on the chess piece
+ *
  * @author Parth Patel, Yash Patel
  */
 public abstract class ChessP {
@@ -54,9 +55,9 @@ public abstract class ChessP {
 
     /**
      * @param isWhite Which team is this piece on?
-     * @param row current row index on the board
-     * @param col current column index on the board
-     * Initializes the chess piece information
+     * @param row     current row index on the board
+     * @param col     current column index on the board
+     *                Initializes the chess piece information
      */
     public ChessP(boolean isWhite, int row, int col) {
         this.isWhite = isWhite;
@@ -71,11 +72,11 @@ public abstract class ChessP {
     }
 
     /**
-     * @param col destination column index on the board
-     * @param row destination row index on the board
+     * @param col         destination column index on the board
+     * @param row         destination row index on the board
      * @param theoretical whether this move is a theoretical move or official move
      * @throws Exception if the move is invalid
-     * moves the piece to the destination from its current location
+     *                   moves the piece to the destination from its current location
      */
     public void move(int col, int row, boolean theoretical) throws Exception {
         if (!theoretical) {
@@ -147,8 +148,7 @@ public abstract class ChessP {
             if (Math.abs(row - this.row) == 1 && Math.abs(col - this.col) == 1 && Board.chessBoard[row][col] == null) {
                 if (pawn.isWhite) {
                     Board.chessBoard[row - 1][col] = null;
-                }
-                else {
+                } else {
                     Board.chessBoard[row + 1][col] = null;
                 }
             }
@@ -239,7 +239,6 @@ public abstract class ChessP {
             try {
                 move(col, row, true);
             } catch (Exception e) {
-                System.out.println(e.getMessage());
                 return false;
             }
 
@@ -261,7 +260,6 @@ public abstract class ChessP {
         try {
             move(col, row, true);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             return true;
         }
         if (Board.is_inCheck(this.isWhite)) {
@@ -486,7 +484,7 @@ public abstract class ChessP {
 
 
     /**
-     * @param OpponentKing reference to the opponent king
+     * @param OpponentKing   reference to the opponent king
      * @param possibleXMoves integer array of possible X moves that this piece can take
      * @param possibleYMoves integer array of possible Y moves that this piece can take
      * @return whether this piece checks the opponent king

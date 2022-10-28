@@ -27,11 +27,19 @@ public class Pawn extends ChessP {
         super(isWhite, row, col);
     }
 
+    /**
+     * @return name of pawn based on color
+     */
     @Override
     public String getName() {
         return this.isWhite ? "wp" : "bp";
     }
 
+    /**
+     * @param col destination column index on the board
+     * @param row destination row index on the board
+     * @return if the destination is possible based on the pawn's path
+     */
     @Override
     public boolean isFollowingPath(int col, int row) {
         // since pawns cannot move both forward and backward, check color
@@ -111,6 +119,10 @@ public class Pawn extends ChessP {
         return false;
     }
 
+    /**
+     * @param OpponentKing reference to the opponent king
+     * @return if the piece is checking the opponent king
+     */
     @Override
     public boolean isCheckingKing(King OpponentKing) {
         if (this.isWhite) {

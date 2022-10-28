@@ -4,6 +4,7 @@ import board.Board;
 
 /**
  * King chess piece
+ *
  * @author Parth Patel, Yash Patel
  */
 public class King extends ChessP {
@@ -35,11 +36,19 @@ public class King extends ChessP {
         super(isWhite, row, col);
     }
 
+    /**
+     * @return name of king based on color
+     */
     @Override
     public String getName() {
         return this.isWhite ? "wK" : "bK";
     }
 
+    /**
+     * @param col destination column index on the board
+     * @param row destination row index on the board
+     * @return if the destination is possible based on the king's path
+     */
     @Override
     public boolean isFollowingPath(int col, int row) {
         if (isCastling) {
@@ -110,6 +119,10 @@ public class King extends ChessP {
         return false;
     }
 
+    /**
+     * @param OpponentKing reference to the opponent king
+     * @return if the piece is checking the opponent king
+     */
     @Override
     public boolean isCheckingKing(King OpponentKing) {
         return kingInCheckByPossibleMoves(OpponentKing, possibleXMoves, possibleYMoves);
