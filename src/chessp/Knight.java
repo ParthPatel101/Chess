@@ -15,7 +15,7 @@ public class Knight extends ChessP {
     public static final int[] possibleYMoves = {1, 2, 2, 1, -1, -2, -2, -1};
 
     /**
-     * @param isWhite which team is this king on?
+     * @param isWhite which team is this knight on?
      * @param row current row index on the board
      * @param col current column index on the board
      * initializes the knight information

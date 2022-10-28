@@ -6,7 +6,7 @@ package chessp;
  */
 public class Queen extends ChessP {
     /**
-     * @param isWhite which team is this king on?
+     * @param isWhite which team is this queen on?
      * @param row current row index on the board
      * @param col current column index on the board
      * initializes the queen information

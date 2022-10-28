@@ -12,7 +12,7 @@ public class Rook extends ChessP {
     public boolean hasNotMoved = true;
 
     /**
-     * @param isWhite which team is this king on?
+     * @param isWhite which team is this rook on?
      * @param row current row index on the board
      * @param col current column index on the board
      * initializes the rook information
