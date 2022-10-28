@@ -1,6 +1,15 @@
 package chessp;
 
+/**
+ * queen chess piece
+ */
 public class Queen extends ChessP {
+    /**
+     * @param isWhite which team is this king on?
+     * @param row current row index on the board
+     * @param col current column index on the board
+     * initializes the queen information
+     */
     public Queen(boolean isWhite, int row, int col) {
         super(isWhite, row, col);
     }

@@ -2,11 +2,26 @@ package chessp;
 
 import board.Board;
 
+/**
+ * pawn chess piece
+ */
 public class Pawn extends ChessP {
 
+    /**
+     * whether it is this pawn's first move
+     */
     public boolean firstMove = true;
+    /**
+     * whether this pawn is able to en-passant
+     */
     public boolean ableToEnPassant = false;
 
+    /**
+     * @param isWhite which team is this king on?
+     * @param row current row index on the board
+     * @param col current column index on the board
+     * initializes the pawn information
+     */
     public Pawn(boolean isWhite, int row, int col) {
         super(isWhite, row, col);
     }

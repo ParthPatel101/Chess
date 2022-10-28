@@ -1,7 +1,16 @@
 package chessp;
 
+/**
+ * Bishop chess piece
+ */
 public class Bishop extends ChessP {
 
+    /**
+     * @param isWhite which team is this bishop on?
+     * @param row current row index on the board
+     * @param col current column index on the board
+     * initializes the bishop information
+     */
     public Bishop(boolean isWhite, int row, int col) {
         super(isWhite, row, col);
     }

@@ -1,9 +1,21 @@
 package chessp;
 
+/**
+ * rook chess piece
+ */
 public class Rook extends ChessP {
 
+    /**
+     * whether this rook has not moved
+     */
     public boolean hasNotMoved = true;
 
+    /**
+     * @param isWhite which team is this king on?
+     * @param row current row index on the board
+     * @param col current column index on the board
+     * initializes the rook information
+     */
     public Rook(boolean isWhite, int row, int col) {
         super(isWhite, row, col);
     }

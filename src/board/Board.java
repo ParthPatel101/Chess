@@ -4,16 +4,54 @@ import chessp.*;
 
 import java.util.Scanner;
 
-public abstract class Board {
+/**
+ * This class acts as the supervisor of the game, keeping information about the state of the game
+ * It also offers general methods that operate on the board
+ * This class cannot be inherited or instantiated, meaning it is purely static
+ */
+public final class Board {
+    /**
+     * This is the chessboard of size 8 by 8
+     */
     public static ChessP[][] chessBoard;
+    /**
+     * This is an array that stores all the white pieces
+     */
     public static ChessP[] whitePieces;
+    /**
+     * This is an array that stores all the black pieces
+     */
     public static ChessP[] blackPieces;
+    /**
+     * This is a reference to the white king
+     */
     public static King whiteKing;
+    /**
+     * This is a reference to the black king
+     */
     public static King blackKing;
+    /**
+     * This keeps track of which color's turn it is
+     */
     public static boolean whiteTurn = true;
+    /**
+     * This keeps track of whether the game is still running, or it ended
+     */
     public static boolean gameRunning = false;
+    /**
+     * This keeps track of whether the game ends in a draw
+     */
     public static boolean draw = false;
 
+    /**
+     * This makes sure that this class cannot be instantiated
+     */
+    private Board() {}
+
+    /**
+     * starts the game by printing the board and asking the user to make a move
+     * Handles all input validation and manages the user interaction as well as game results
+     */
     public static void start_game() {
         Scanner in = new Scanner(System.in);
         initialize_board();
@@ -106,6 +144,11 @@ public abstract class Board {
         }
     }
 
+    /**
+     * @param letter a lowercase letter part of the alphabet a through h
+     * @return column index
+     * Converts a letter to an index number for the chessboard
+     */
     public static int convertLetterToNumber(String letter) {
         return switch (letter) {
             case "b" -> 1;
@@ -119,6 +162,10 @@ public abstract class Board {
         };
     }
 
+    /**
+     * initializes the board by creating the chess pieces and placing them onto the board
+     * Stores the initial state of the game as well
+     */
     public static void initialize_board() {
         chessBoard = new ChessP[8][8];
         // initialize the Whites and Blacks arrays with their respective Chess Piece Objects and stored pieces based on game order
@@ -169,6 +216,9 @@ public abstract class Board {
 
     }
 
+    /**
+     * Prints the chess board onto the terminal
+     */
     public static void print_board() {
         System.out.print("\n");
         for (int row = 7; row >= 0; row--) {
@@ -192,6 +242,11 @@ public abstract class Board {
         System.out.println(" a  b  c  d  e  f  g  h\n");
     }
 
+    /**
+     * @param isWhite Which team?
+     * @return whether the team's king is in check
+     * Checks whether the team's king is in check
+     */
     public static boolean is_inCheck(boolean isWhite) {
         // check all black pieces that are alive to see if they are checking white king
         if (isWhite) {
@@ -208,6 +263,11 @@ public abstract class Board {
         return false;
     }
 
+    /**
+     * @param isWhite Which team?
+     * @return whether the team's king is checkmated
+     * Checks whether the team's king is checkmated by opponent team
+     */
     public static boolean isCheckMated(boolean isWhite) {
         // check if king is even in check or not
         if (!is_inCheck(isWhite)) {

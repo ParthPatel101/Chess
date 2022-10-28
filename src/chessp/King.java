@@ -2,13 +2,34 @@ package chessp;
 
 import board.Board;
 
+/**
+ * King chess piece
+ */
 public class King extends ChessP {
 
+    /**
+     * list of possible X moves of the king
+     */
     public static final int[] possibleXMoves = {-1, -1, -1, 0, 0, 1, 1, 1};
+    /**
+     * list of possible Y moves of the king
+     */
     public static final int[] possibleYMoves = {-1, 0, 1, -1, 1, -1, 0, 1};
+    /**
+     * whether this king can castle
+     */
     public boolean canCastle = true;
+    /**
+     * whether this king is castling right now
+     */
     public boolean isCastling = false;
 
+    /**
+     * @param isWhite which team is this king on?
+     * @param row current row index on the board
+     * @param col current column index on the board
+     * initializes the king information
+     */
     public King(boolean isWhite, int row, int col) {
         super(isWhite, row, col);
     }

@@ -2,19 +2,61 @@ package chessp;
 
 import board.Board;
 
+/**
+ * Stores information about the chess piece and offers methods that operate on the chess piece
+ */
 public abstract class ChessP {
+    /**
+     * Which team is this piece on?
+     */
     public boolean isWhite;
+    /**
+     * Current row index on the board
+     */
     public int row;
+    /**
+     * Previous row index on the board
+     */
     public int prevRow;
+    /**
+     * Current column index on the board
+     */
     public int col;
+    /**
+     * Previous column index on the board
+     */
     public int prevCol;
+    /**
+     * Whether this piece is still in the game, or it has been captured
+     */
     public boolean in_game;
+    /**
+     * Who did this piece capture last?
+     */
     public ChessP capturedLast;
+    /**
+     * whether to undo the move that captured a piece
+     */
     public boolean undoCapturedLast;
+    /**
+     * whether to undo the move that was a Pawn's first move
+     */
     public boolean undoPawnFirstMove;
+    /**
+     * whether to undo the move that was a Rook's first move
+     */
     public boolean undoRookFirstMove;
+    /**
+     * whether to undo the move that was a Castling move
+     */
     public boolean undoKingCastledMove;
 
+    /**
+     * @param isWhite Which team is this piece on?
+     * @param row current row index on the board
+     * @param col current column index on the board
+     * Initializes the chess piece information
+     */
     public ChessP(boolean isWhite, int row, int col) {
         this.isWhite = isWhite;
         this.row = row;
@@ -27,6 +69,13 @@ public abstract class ChessP {
         this.undoPawnFirstMove = false;
     }
 
+    /**
+     * @param col destination column index on the board
+     * @param row destination row index on the board
+     * @param theoretical whether this move is a theoretical move or official move
+     * @throws Exception if the move is invalid
+     * moves the piece to the destination from its current location
+     */
     public void move(int col, int row, boolean theoretical) throws Exception {
         if (!theoretical) {
             if (!preliminaryLegalMove(col, row)) throw new Exception("Move does not pass preliminary checks.");
@@ -94,6 +143,9 @@ public abstract class ChessP {
         this.col = col;
     }
 
+    /**
+     * Undoes the last move of this piece
+     */
     public void undoMove() {
         if (this.undoCapturedLast) {
             this.undoCapturedLast = false;
@@ -125,16 +177,31 @@ public abstract class ChessP {
         this.col = this.prevCol;
     }
 
+    /**
+     * @param col destination column index on the board
+     * @param row destination row index on the board
+     * @return whether destination is valid for this piece
+     */
     public boolean isValidLocation(int col, int row) {
         // check if location is on the board
         return (row <= 7 && row >= 0) && (col <= 7 && col >= 0) && (row != this.row || col != this.col);
     }
 
+    /**
+     * @param col destination column index on the board
+     * @param row destination row index on the board
+     * @return whether the destination is occupied by a teammate
+     */
     public boolean isOccupiedBySameColor(int col, int row) {
         // check if position in use and is of same color
         return Board.chessBoard[row][col] != null && Board.chessBoard[row][col].isWhite == this.isWhite;
     }
 
+    /**
+     * @param col destination column index on the board
+     * @param row destination row index on the board
+     * @return whether destination is valid and is not occupied by a teammate and if the piece is following its own path
+     */
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public boolean preliminaryLegalMove(int col, int row) {
         if (!isValidLocation(col, row)) return false;
@@ -142,6 +209,11 @@ public abstract class ChessP {
         return (isFollowingPath(col, row));
     }
 
+    /**
+     * @param col destination column index on the board
+     * @param row destination row index on the board
+     * @return whether this move will block the check, if your king is in check
+     */
     public boolean willMoveBlockCheck(int col, int row) {
         // check if your king is in check and see if moving would block the check, return false if it doesn't block the check
         if (Board.is_inCheck(this.isWhite)) {
@@ -161,6 +233,11 @@ public abstract class ChessP {
         return true;
     }
 
+    /**
+     * @param col destination column index on the board
+     * @param row destination row index on the board
+     * @return whether this move will put your king in check
+     */
     public boolean willMovePutKingInCheck(int col, int row) {
         try {
             move(col, row, true);
@@ -176,6 +253,14 @@ public abstract class ChessP {
         return false;
     }
 
+    /**
+     * @param col destination column index on the board
+     * @param row destination row index on the board
+     * @return whether this piece can move horizontally without obstruction
+     * This method is only used as part of a combination of other methods
+     * Ex. Queen can only move diagonally, vertically, or horizontally
+     * Ex. Bishop can only move diagonally
+     */
     public boolean canMoveHorizontally(int col, int row) {
         // moving right
         if (col > this.col) {
@@ -199,6 +284,14 @@ public abstract class ChessP {
         return true;
     }
 
+    /**
+     * @param col destination column index on the board
+     * @param row destination row index on the board
+     * @return whether this piece can move vertically without obstruction
+     * This method is only used as part of a combination of other methods
+     * Ex. Queen can only move diagonally, vertically, or horizontally
+     * Ex. Bishop can only move diagonally
+     */
     public boolean canMoveVertically(int col, int row) {
         // moving up
         if (row > this.row) {
@@ -222,6 +315,14 @@ public abstract class ChessP {
         return true;
     }
 
+    /**
+     * @param col destination column index on the board
+     * @param row destination row index on the board
+     * @return whether this piece can move diagonally without obstruction
+     * This method is only used as part of a combination of other methods
+     * Ex. Queen can only move diagonally, vertically, or horizontally
+     * Ex. Bishop can only move diagonally
+     */
     public boolean canMoveDiagonally(int col, int row) {
         // diag up and right
         if (row > this.row && col > this.col) {
@@ -265,6 +366,10 @@ public abstract class ChessP {
         }
     }
 
+    /**
+     * @param OpponentKing reference to the opponent king
+     * @return whether this piece checks the opponent king horizontally
+     */
     public boolean kingInCheckHorizontally(King OpponentKing) {
         // check right
         for (int i = this.col + 1; i <= 7; i++) {
@@ -288,6 +393,10 @@ public abstract class ChessP {
         return false;
     }
 
+    /**
+     * @param OpponentKing reference to the opponent king
+     * @return whether this piece checks the opponent king vertically
+     */
     public boolean kingInCheckVertically(King OpponentKing) {
         // check up
         for (int i = this.row + 1; i <= 7; i++) {
@@ -311,6 +420,10 @@ public abstract class ChessP {
         return false;
     }
 
+    /**
+     * @param OpponentKing reference to the opponent king
+     * @return whether this piece checks the opponent king diagonally
+     */
     public boolean kingInCheckDiagonally(King OpponentKing) {
         // check diag up and right
         for (int i = this.row + 1, j = this.col + 1; i <= 7 && j <= 7; i++, j++) {
@@ -352,6 +465,13 @@ public abstract class ChessP {
         return false;
     }
 
+
+    /**
+     * @param OpponentKing reference to the opponent king
+     * @param possibleXMoves integer array of possible X moves that this piece can take
+     * @param possibleYMoves integer array of possible Y moves that this piece can take
+     * @return whether this piece checks the opponent king
+     */
     public boolean kingInCheckByPossibleMoves(King OpponentKing, int[] possibleXMoves, int[] possibleYMoves) {
         for (int i = 0; i < 8; i++) {
             int checkRow = this.row + possibleXMoves[i];
@@ -365,9 +485,23 @@ public abstract class ChessP {
         return false;
     }
 
+    /**
+     * @return gets the name of this piece
+     */
     abstract public String getName();
 
+    /**
+     * @param col destination column index on the board
+     * @param row destination row index on the board
+     * @return whether this piece is following its own path
+     */
     abstract public boolean isFollowingPath(int col, int row);
 
+    /**
+     * @param OpponentKing reference to the opponent king
+     * @return whether this piece is checking opponent king
+     */
     abstract public boolean isCheckingKing(King OpponentKing);
 }
+
+
