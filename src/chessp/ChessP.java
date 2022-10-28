@@ -126,6 +126,8 @@ public abstract class ChessP {
                     Board.chessBoard[this.row][0] = null;
                     Rook rook = (Rook) Board.chessBoard[this.row][this.col - 1];
                     rook.hasNotMoved = false;
+                    rook.row = this.row;
+                    rook.col = this.col - 1;
                 }
                 // castling right
                 else {
@@ -134,6 +136,8 @@ public abstract class ChessP {
                     Board.chessBoard[this.row][7] = null;
                     Rook rook = (Rook) Board.chessBoard[this.row][this.col + 1];
                     rook.hasNotMoved = false;
+                    rook.row = this.row;
+                    rook.col = this.col + 1;
                 }
             }
         }
