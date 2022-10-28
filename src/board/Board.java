@@ -227,9 +227,7 @@ public final class Board {
                     if ((row + col) % 2 == 0) {
                         System.out.print("## ");
                     } else {
-                        // this is just for looking at index while we develop the moves will remove after
-                        System.out.print(row + "" + col + " ");
-//                        System.out.print("   ");
+                        System.out.print("   ");
                     }
                 } else {
                     System.out.print(Board.chessBoard[row][col].getName() + " ");

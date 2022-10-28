@@ -91,13 +91,13 @@ public abstract class ChessP {
             Board.chessBoard[row][col].in_game = false;
             this.capturedLast = Board.chessBoard[row][col];
         }
-        // if a pawn made it's first move then change indicator variable
+        // if a pawn made it's first move then change indicator variables
         if (this instanceof Pawn pawn) {
             if (pawn.firstMove) {
                 if (theoretical) this.undoPawnFirstMove = true;
                 pawn.firstMove = false;
                 // pawn moved 2 so they can be en passant
-                if (Math.abs(col - this.col) == 2) {
+                if (!theoretical && Math.abs(row - this.prevRow) == 2) {
                     pawn.ableToEnPassant = true;
                 }
             } else {
@@ -105,6 +105,7 @@ public abstract class ChessP {
                     pawn.ableToEnPassant = false;
                 }
             }
+
         }
         // if the rook moved then they can't castle anymore with the king
         if (this instanceof Rook rook && rook.hasNotMoved) {
@@ -136,6 +137,19 @@ public abstract class ChessP {
                 }
             }
         }
+
+        if (!theoretical && this instanceof Pawn pawn) {
+            // check if we did an en passant move and delete the pawn if we did
+            if (Math.abs(row - this.row) == 1 && Math.abs(col - this.col) == 1 && Board.chessBoard[row][col] == null) {
+                if (pawn.isWhite) {
+                    Board.chessBoard[row - 1][col] = null;
+                }
+                else {
+                    Board.chessBoard[row + 1][col] = null;
+                }
+            }
+        }
+
         Board.chessBoard[row][col] = this;
         Board.chessBoard[this.row][this.col] = null;
         this.prevRow = this.row;
