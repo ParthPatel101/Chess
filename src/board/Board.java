@@ -41,6 +41,11 @@ public final class Board {
      */
     public static boolean gameRunning = false;
     /**
+     * This keeps track of whether the user inputted an invalid input
+     */
+    public static boolean invalid_input = false;
+
+    /**
      * This keeps track of whether the game ends in a draw
      */
     public static boolean draw = false;
@@ -60,8 +65,16 @@ public final class Board {
         initialize_board();
         gameRunning = true;
         while (gameRunning) {
-            if (!draw) {
+            if (!draw && !invalid_input) {
                 print_board();
+            }
+            if (!invalid_input) {
+                for (int i = 0; i < 16; i++) {
+                    if (whitePieces[i].isCheckingKing(blackKing) || blackPieces[i].isCheckingKing(whiteKing)) {
+                        System.out.println("Check");
+                        break;
+                    }
+                }
             }
             System.out.print(whiteTurn ? "White's move: " : "Black's move: ");
             String input = in.nextLine();
@@ -85,7 +98,6 @@ public final class Board {
                 break;
             } else if (input.contains("draw?")) {
                 draw = true;
-
                 print_board();
             } else {
                 String[] arr = input.split(" ");
@@ -98,11 +110,13 @@ public final class Board {
 
                 if (chessBoard[fromRow][fromCol] == null) {
                     System.out.println("Illegal move, try again");
+                    invalid_input = true;
                     continue;
                 }
 
                 ChessP movingPiece = chessBoard[fromRow][fromCol];
                 if (whiteTurn != movingPiece.isWhite) {
+                    invalid_input = true;
                     System.out.println("Illegal move, try again");
                     continue;
                 }
@@ -110,6 +124,7 @@ public final class Board {
                 // if input has a promotion input without a promotion possible
                 if (arr.length == 3 && (!(movingPiece instanceof Pawn) || !(toRow == 0 || toRow == 7))) {
                     System.out.println("Illegal move, try again");
+                    invalid_input = true;
                     continue;
                 }
 
@@ -117,8 +132,10 @@ public final class Board {
                     movingPiece.move(toCol, toRow, false);
                 } catch (Exception e) {
                     System.out.println("Illegal move, try again");
+                    invalid_input = true;
                     continue;
                 }
+                invalid_input = false;
 
                 // check if pawn is moving to opposite side then check if there is a rank indicated
                 if (movingPiece instanceof Pawn && (toRow == 0 || toRow == 7)) {
