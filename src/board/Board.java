@@ -123,14 +123,49 @@ public final class Board {
                 // check if pawn is moving to opposite side then check if there is a rank indicated
                 if (movingPiece instanceof Pawn && (toRow == 0 || toRow == 7)) {
                     if (arr.length == 3) {
-                        switch (arr[2]) {
-                            case "B" -> chessBoard[toRow][toCol] = new Bishop(movingPiece.isWhite, toRow, toCol);
-                            case "N" -> chessBoard[toRow][toCol] = new Knight(movingPiece.isWhite, toRow, toCol);
-                            case "R" -> chessBoard[toRow][toCol] = new Rook(movingPiece.isWhite, toRow, toCol);
-                            default -> chessBoard[toRow][toCol] = new Queen(movingPiece.isWhite, toRow, toCol);
+                        if (movingPiece.isWhite) {
+                            for (int i = 8; i < whitePieces.length; i++) {
+                                if (whitePieces[i] == movingPiece) {
+                                    switch (arr[2]) {
+                                        case "B" -> whitePieces[i] = new Bishop(true, toRow, toCol);
+                                        case "N" -> whitePieces[i] = new Knight(true, toRow, toCol);
+                                        case "R" -> whitePieces[i] = new Rook(true, toRow, toCol);
+                                        default -> whitePieces[i] = new Queen(true, toRow, toCol);
+                                    }
+                                    chessBoard[toRow][toCol] = whitePieces[i];
+                                }
+                            }
+                        }
+                        else {
+                            for (int i = 8; i < blackPieces.length; i++) {
+                                if (blackPieces[i] == movingPiece) {
+                                    switch (arr[2]) {
+                                        case "B" -> blackPieces[i] = new Bishop(false, toRow, toCol);
+                                        case "N" -> blackPieces[i] = new Knight(false, toRow, toCol);
+                                        case "R" -> blackPieces[i] = new Rook(false, toRow, toCol);
+                                        default -> blackPieces[i] = new Queen(false, toRow, toCol);
+                                    }
+                                    chessBoard[toRow][toCol] = blackPieces[i];
+                                }
+                            }
                         }
                     } else {
-                        chessBoard[toRow][toCol] = new Queen(movingPiece.isWhite, toRow, toCol);
+                        if (movingPiece.isWhite) {
+                            for (int i = 8; i < whitePieces.length; i++) {
+                                if (whitePieces[i] == movingPiece) {
+                                    whitePieces[i] = new Queen(true, toRow, toCol);
+                                    chessBoard[toRow][toCol] = whitePieces[i];
+                                }
+                            }
+                        }
+                        else {
+                            for (int i = 8; i < blackPieces.length; i++) {
+                                if (blackPieces[i] == movingPiece) {
+                                    blackPieces[i] = new Queen(false, toRow, toCol);
+                                    chessBoard[toRow][toCol] = blackPieces[i];
+                                }
+                            }
+                        }
                     }
                 }
             }
